@@ -1,10 +1,12 @@
 require('dotenv').config();
 
 const axios = require('axios');
-const { Telegraf, Extra, Markup } = require('telegraf');
-const { getPriceList, preparePlacesFiles, handleLanguageAction, getBotLanguage } = require('./utils/utils');
+const { Telegraf, Extra, Markup, session } = require('telegraf');
+const { getPriceList, preparePlacesFiles, handleLanguageAction } = require('./utils/utils');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
+
+bot.use(session());
 
 bot.hears('/start', ctx => {
   const languageQuestion = `What language do you want to use? Choose the appropriate language!`;
@@ -18,7 +20,7 @@ bot.action('ru', handleLanguageAction);
 
 bot.on('text', async ctx => {
   try {
-    const places = require(`./places/places_${getBotLanguage()}.json`);
+    const places = require(`./places/places_${ctx.session.botLanguage}.json`);
     const incomingText = ctx.message.text;
     const incomingPlace = incomingText[0].toUpperCase() + incomingText.slice(1);
 

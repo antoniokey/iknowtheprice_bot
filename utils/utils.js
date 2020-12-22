@@ -3,8 +3,6 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-let botLanguage = '';
-
 const getHeadersData = $ => {
   try {
     const headers = [];
@@ -117,11 +115,9 @@ const handleLanguageAction = ctx => {
   const language = ctx.match;
   const responseText = `You choose ${language.toUpperCase()} language! Now, enter the country name you want to go to in order to get price list!`;
 
-  botLanguage = language;
+  ctx.session.botLanguage = language;
 
   ctx.reply(responseText);
 };
 
-const getBotLanguage = () => botLanguage;
-
-module.exports = { getPriceList, preparePlacesFiles, handleLanguageAction, getBotLanguage };
+module.exports = { getPriceList, preparePlacesFiles, handleLanguageAction };
