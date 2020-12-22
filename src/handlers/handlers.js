@@ -34,10 +34,10 @@ const handleLanguageAction = async ctx => {
   ctx.i18n.locale(language);
 
   const changeLanguageMessage = ctx.i18n.t('changeLanguageMessage');
-  const informationAfterActionMessage = ctx.i18n.t('informationAfterActionMessage');
+  const getPriceListMessage = ctx.i18n.t('getPriceListMessage');
 
   await ctx.reply(changeLanguageMessage);
-  await ctx.reply(informationAfterActionMessage);
+  await ctx.reply(getPriceListMessage);
 };
 
 const handleText = async ctx => {
