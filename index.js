@@ -5,7 +5,14 @@ const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleTex
 const { handleInitialSetupMiddleware } = require('./middlewares/middlewares');
 const { preparePlacesFiles } = require('./utils/utils');
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const API_TOKEN = process.env.API_TOKEN || '';
+const PORT = process.env.PORT || 3000;
+const URL = process.env.URL || 'https://dashboard.heroku.com/apps/iknowtheprice-bot';
+
+const bot = new Telegraf(API_TOKEN);
+
+bot.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
+bot.startWebhook(`/bot${API_TOKEN}`, null, PORT);
 
 bot.use(session());
 bot.use(handleInitialSetupMiddleware);
