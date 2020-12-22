@@ -5,8 +5,8 @@ languageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado
 informationAfterActionMessage: ¡O escriba /ayuda para obtener información adicional!
 changeLanguageMessage: ¡Tú eliges el idioma español! Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar.
 
-startActionMessage: /comienzo - El bot comienza a funcionar
-languageActionMessage: /idioma - cambia el idioma del bot
-helpActionMessage: /ayuda - Mostrar todos los comandos del bot
+startActionMessage: /comienzo - Inicio de ejecución
+languageActionMessage: /idioma - Cambia el idioma
+helpActionMessage: /ayuda - Mostrar todos los comandos
 
 gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incommingPlace} ...
