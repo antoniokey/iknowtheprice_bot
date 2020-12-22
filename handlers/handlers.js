@@ -51,7 +51,7 @@ const handleText = async ctx => {
     const incomingPlace = incomingText[0].toUpperCase() + incomingText.slice(1);
 
     await ctx.reply(`Now the bot is getting all the price in ${incomingPlace}...`);
-    console.log(places, incomingPlace);
+
     const url = places.find(place => place.title === incomingPlace).url;
     const webpage = await axios.get(url);
 
