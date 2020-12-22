@@ -1,9 +1,9 @@
 require('dotenv').config();
 
 const { Telegraf, session } = require('telegraf');
-const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleText } = require('./handlers/handlers');
-const { handleInitialSetupMiddleware } = require('./middlewares/middlewares');
-const { preparePlacesFiles } = require('./utils/utils');
+const { i18n } = require('./src/config/i18n');
+const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleText } = require('./src/handlers/handlers');
+const { preparePlacesFiles } = require('./src/utils/utils');
 
 const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;
@@ -15,7 +15,7 @@ bot.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
 bot.startWebhook(`/bot${API_TOKEN}`, null, PORT);
 
 bot.use(session());
-bot.use(handleInitialSetupMiddleware);
+bot.use(i18n.middleware());
 
 bot.hears('/start', handleStart);
 bot.hears('/language', handleLanguage);
@@ -25,8 +25,6 @@ bot.action('en', handleLanguageAction);
 bot.action('ru', handleLanguageAction);
 
 bot.on('text', handleText);
-
-bot.start(() => console.log('Bot has been started successfully!'));
 
 bot
   .launch()

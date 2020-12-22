@@ -91,7 +91,7 @@ const getPriceList = page => {
   }
 };
 
-const preparePlacesFiles = async () => {
+const preparePlacesFiles = async ctx => {
   const places_ru = fs.existsSync(path.join(__dirname, '..', 'places', RU_FILE_NAME));
   const places_en = fs.existsSync(path.join(__dirname, '..', 'places', EN_FILE_NAME));
 
