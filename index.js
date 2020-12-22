@@ -7,7 +7,7 @@ const { preparePlacesFiles } = require('./utils/utils');
 
 const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;
-const URL = process.env.URL || 'https://dashboard.heroku.com/apps/iknowtheprice-bot';
+const URL = process.env.URL || 'https://your-heroku-app.herokuapp.com';
 
 const bot = new Telegraf(API_TOKEN);
 
