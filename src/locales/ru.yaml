@@ -3,7 +3,7 @@ commandsMessage: Ниже находяться команды, которые м
 getPriceListMessage: Чтобы постмотреть информацию о ценах, напишите название места!
 languageQuestionMessage: Какой язык Вы хотите испоользовать? Выберете подходящий язык!
 informationAfterActionMessage: Или напишите /help для получения дополнительной информации!
-changeLanguageMessage: Вы выбрали RU язык! Чтобы постмотреть информацию о ценах, напишите название места!
+changeLanguageMessage: Вы выбрали русский язык! Чтобы постмотреть информацию о ценах, напишите название места!
 
 startActionMessage: /start - Начало работы бота
 languageActionMessage: /language - Смена языка бота
