@@ -19,6 +19,8 @@ bot.action('ru', handleLanguageAction);
 
 bot.on('text', handleText);
 
+bot.start(() => console.log('Bot has been started successfully!'));
+
 bot
   .launch()
   .then(preparePlacesFiles);
