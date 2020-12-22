@@ -30,4 +30,5 @@ bot.start(() => console.log('Bot has been started successfully!'));
 
 bot
   .launch()
+  .then(() => console.log('The iknowtheprice bot started!'))
   .then(preparePlacesFiles);
