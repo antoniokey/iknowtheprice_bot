@@ -1,0 +1,394 @@
+[
+  {
+    "title": "Австрия",
+    "url": "https://www.globalprice.info/?p=avstria/ceny-v-vene-na-edy"
+  },
+  {
+    "title": "Австралия",
+    "url": "https://www.globalprice.info/?p=avstralia/cenu-v-avstralii"
+  },
+  {
+    "title": "Аргентина",
+    "url": "https://www.globalprice.info/?p=argentina/cafe-restaurant-prices-buenos-aires"
+  },
+  {
+    "title": "Азербайджан",
+    "url": "https://www.globalprice.info/?p=azerbaijan/tsenu-na-produkti-baku"
+  },
+  {
+    "title": "Армения",
+    "url": "https://www.globalprice.info/?p=armenia/tseni-v-erevane-na-produkti"
+  },
+  {
+    "title": "Афганистан",
+    "url": "https://www.globalprice.info/?p=afganistan/tsenu-v-afganistane"
+  },
+  {
+    "title": "Белоруссия",
+    "url": "https://www.globalprice.info/?p=belarus/tsenu-v-minske-na-produkty"
+  },
+  {
+    "title": "Болгария",
+    "url": "https://www.globalprice.info/?p=bolgaria/cenu-v-bolgarii-na-edu"
+  },
+  {
+    "title": "Бельгия",
+    "url": "https://www.globalprice.info/?p=belgia/cenu-v-belgii-na-edu"
+  },
+  {
+    "title": "Босния и Герцеговина",
+    "url": "https://www.globalprice.info/?p=bosnia_and_herzegovina/tsenu-na-edu"
+  },
+  {
+    "title": "Бразилия",
+    "url": "https://www.globalprice.info/?p=braziliya/tsenu-v-brazilii-na-edu"
+  },
+  {
+    "title": "Боливия",
+    "url": "https://www.globalprice.info/?p=bolivia/tsenu-v-bolivii"
+  },
+  {
+    "title": "Барбадос",
+    "url": "https://www.globalprice.info/?p=barbados/prices-in-barbados"
+  },
+  {
+    "title": "Бутан",
+    "url": "https://www.globalprice.info/?p=butan/obzor-cen-v-butane"
+  },
+  {
+    "title": "Бангладеш",
+    "url": "https://www.globalprice.info/?p=bangladesh/cenu-v-bangladeshe"
+  },
+  {
+    "title": "Бруней",
+    "url": "https://www.globalprice.info/?p=brunei/tsenu-na-edy"
+  },
+  {
+    "title": "Великобритания",
+    "url": "https://www.globalprice.info/?p=anglia/tsenu-na-edu-v-anglii"
+  },
+  {
+    "title": "Венгрия",
+    "url": "https://www.globalprice.info/?p=vengria/ceny-na-edu-v-restoranah"
+  },
+  {
+    "title": "Вьетнам",
+    "url": "https://www.globalprice.info/?p=vietnam/-review-prices-in-vietnam"
+  },
+  {
+    "title": "Венесуэла",
+    "url": "https://www.globalprice.info/?p=venisuela/tsenu-na-edu-v-venisuele"
+  },
+  {
+    "title": "Германия",
+    "url": "https://www.globalprice.info/?p=germaniya/ceny-berlin-na-edu-restoran"
+  },
+  {
+    "title": "Греция",
+    "url": "https://www.globalprice.info/?p=grecia/ceny-v-afinah-na-edu-kafe"
+  },
+  {
+    "title": "Гонконг",
+    "url": "https://www.globalprice.info/?p=gonkong/tseny-na-edy-restoran"
+  },
+  {
+    "title": "Грузия",
+    "url": "https://www.globalprice.info/?p=georgia/tbilisi-cafes-and-restaurants"
+  },
+  {
+    "title": "Гватемала",
+    "url": "https://www.globalprice.info/?p=gvatemala/tsenu-v-gvatemale"
+  },
+  {
+    "title": "Гондурас",
+    "url": "https://www.globalprice.info/?p=gonduras/tsenu-v-gondurace"
+  },
+  {
+    "title": "Доминикана",
+    "url": "https://www.globalprice.info/?p=dominikana/tsenu_v_dominikane"
+  },
+  {
+    "title": "Дания",
+    "url": "https://www.globalprice.info/?p=dania/tsenu-v-danii-na-edu"
+  },
+  {
+    "title": "Италия",
+    "url": "https://www.globalprice.info/?p=italia/cenu-v-italii-v-supermarkete-i-na-rinke"
+  },
+  {
+    "title": "Испания",
+    "url": "https://www.globalprice.info/?p=ispania/cenu-v-ispanii-na-edu"
+  },
+  {
+    "title": "Ирландия",
+    "url": "https://www.globalprice.info/?p=ireland/cenu-v-irlandii-na-edu"
+  },
+  {
+    "title": "Индонезия",
+    "url": "https://www.globalprice.info/?p=indonesia/-review-prices-in-indonesia"
+  },
+  {
+    "title": "Индия",
+    "url": "https://www.globalprice.info/?p=india/cenu-v-indii-na-edu"
+  },
+  {
+    "title": "Исландия",
+    "url": "https://www.globalprice.info/?p=islandia/ceny-v-reykjavike-na-edu-kafe"
+  },
+  {
+    "title": "Израиль",
+    "url": "https://www.globalprice.info/?p=izrail/tsenu-v-izraile-na-edu"
+  },
+  {
+    "title": "Иран",
+    "url": "https://www.globalprice.info/?p=iran/tsenu-v-irane"
+  },
+  {
+    "title": "Иордания",
+    "url": "https://www.globalprice.info/?p=iordania/ceny-na-edu"
+  },
+  {
+    "title": "Йемен",
+    "url": "https://www.globalprice.info/?p=iemen/tsenu-v-iemene"
+  },
+  {
+    "title": "Канада",
+    "url": "https://www.globalprice.info/?p=kanada/-review-prices-in-canada"
+  },
+  {
+    "title": "Китай",
+    "url": "https://www.globalprice.info/?p=kitai/-review-prices-in-china"
+  },
+  {
+    "title": "Кипр",
+    "url": "https://www.globalprice.info/?p=cyprus/ceny-na-edu-kafe-restoran"
+  },
+  {
+    "title": "Южная Корея",
+    "url": "https://www.globalprice.info/?p=koreya/cenu-v-koree"
+  },
+  {
+    "title": "Камбоджа",
+    "url": "https://www.globalprice.info/?p=cambodia/tseny-na-edy"
+  },
+  {
+    "title": "Казахстан",
+    "url": "https://www.globalprice.info/?p=kazakhstan/cenu-na-edu-v-cafe"
+  },
+  {
+    "title": "Коста-Рика",
+    "url": "https://www.globalprice.info/?p=kosta-rika/tsenu-v-kosta-rike"
+  },
+  {
+    "title": "Куба",
+    "url": "https://www.globalprice.info/?p=kuba/tsenu-na-kube-na-edu"
+  },
+  {
+    "title": "Колумбия",
+    "url": "https://www.globalprice.info/?p=kolumbia/tsenu-na-edu-v-kolumbii"
+  },
+  {
+    "title": "Киргизия",
+    "url": "https://www.globalprice.info/?p=kyrgyzstan/produkty-pitaniya-bishkek"
+  },
+  {
+    "title": "Литва",
+    "url": "https://www.globalprice.info/?p=litva/tsenu-v-litve-na-edu"
+  },
+  {
+    "title": "Латвия",
+    "url": "https://www.globalprice.info/?p=latvia/ceny-na-edu-restoran-riga"
+  },
+  {
+    "title": "Ливан",
+    "url": "https://www.globalprice.info/?p=livan/ceny-na-edy-restoran-beirut"
+  },
+  {
+    "title": "Лаос",
+    "url": "https://www.globalprice.info/?p=laos/-review-prices-in-laos"
+  },
+  {
+    "title": "Мальта",
+    "url": "https://www.globalprice.info/?p=malta/tsenu-v-cafe-restoranah"
+  },
+  {
+    "title": "Мальдивы",
+    "url": "https://www.globalprice.info/?p=maldives/male-ceny-cafe-restoran"
+  },
+  {
+    "title": "Малайзия",
+    "url": "https://www.globalprice.info/?p=malaiziya/-review-prices-in-malaysia"
+  },
+  {
+    "title": "Мьянма",
+    "url": "https://www.globalprice.info/?p=birma/tsenu-v-birme-na-edu"
+  },
+  {
+    "title": "Македония ",
+    "url": "https://www.globalprice.info/?p=makedonia/tsenu-na-edu-cafe-produkti"
+  },
+  {
+    "title": "Мексика",
+    "url": "https://www.globalprice.info/?p=meksika/tsenu-v-meksike-na-transport"
+  },
+  {
+    "title": "Макао",
+    "url": "https://www.globalprice.info/?p=macau/cenu-na-edu"
+  },
+  {
+    "title": "Монголия",
+    "url": "https://www.globalprice.info/?p=mongolia/obzor-cen-v-mongolii"
+  },
+  {
+    "title": "Нидерланды",
+    "url": "https://www.globalprice.info/?p=niderland/cenu-na-edu-amsterdam"
+  },
+  {
+    "title": "Норвегия",
+    "url": "https://www.globalprice.info/?p=norvegia/tsenu-v-norvegii-oslo-na-produkti"
+  },
+  {
+    "title": "Новая Зеландия",
+    "url": "https://www.globalprice.info/?p=novaya-zelandia/tseny-na-produkti"
+  },
+  {
+    "title": "Непал",
+    "url": "https://www.globalprice.info/?p=nepal/obzor-cen-v-nepale"
+  },
+  {
+    "title": "Никарагуа",
+    "url": "https://www.globalprice.info/?p=nikaragua/tsenu-v-nikaragua"
+  },
+  {
+    "title": "ОАЭ",
+    "url": "https://www.globalprice.info/?p=dubai/cenu-v-dubae-na-edu"
+  },
+  {
+    "title": "Оман",
+    "url": "https://www.globalprice.info/?p=oman/mascat-food-prices"
+  },
+  {
+    "title": "Польша",
+    "url": "https://www.globalprice.info/?p=polsha/varshava-ceny-na-edu-restoran"
+  },
+  {
+    "title": "Панама",
+    "url": "https://www.globalprice.info/?p=panama/tsenu-v-paname"
+  },
+  {
+    "title": "Португалия",
+    "url": "https://www.globalprice.info/?p=portugalia/cenu-v-portugalii-na-edu"
+  },
+  {
+    "title": "Перу",
+    "url": "https://www.globalprice.info/?p=peru/lima-tseni-na-edy-restoran"
+  },
+  {
+    "title": "Россия",
+    "url": "https://www.globalprice.info/?p=russia/ceny-na-produkty-v-moskve"
+  },
+  {
+    "title": "Румыния",
+    "url": "https://www.globalprice.info/?p=romania/tseny-na-edy-buharest"
+  },
+  {
+    "title": "США",
+    "url": "https://www.globalprice.info/?p=amerika/cenu-v-amerike-na-edu"
+  },
+  {
+    "title": "Сингапур",
+    "url": "https://www.globalprice.info/?p=singapur/tsenu-v-singapure-na-edu"
+  },
+  {
+    "title": "Словакия",
+    "url": "https://www.globalprice.info/?p=slovakia/ceny-na-edy-v-restoranah-cafe"
+  },
+  {
+    "title": "Словения",
+    "url": "https://www.globalprice.info/?p=slovenia/tseny-na-produkty"
+  },
+  {
+    "title": "Сирия",
+    "url": "https://www.globalprice.info/?p=siriya/tsenu-v-sirii"
+  },
+  {
+    "title": "Таиланд",
+    "url": "https://www.globalprice.info/?p=tailand/-review-prices-in-thailand"
+  },
+  {
+    "title": "Турция",
+    "url": "https://www.globalprice.info/?p=turkey/tsenu-v-turcii"
+  },
+  {
+    "title": "Тунис",
+    "url": "https://www.globalprice.info/?p=tunisia/cenu-v-tunise"
+  },
+  {
+    "title": "Тайвань",
+    "url": "https://www.globalprice.info/?p=taiwan/cenu-v-taivane-na-edu-v-kafe"
+  },
+  {
+    "title": "Узбекистан",
+    "url": "https://www.globalprice.info/?p=uzbekistan/tsenu-na-produkti-tashkent"
+  },
+  {
+    "title": "Уругвай",
+    "url": "https://www.globalprice.info/?p=urugvai/tsenu_v_urugvae"
+  },
+  {
+    "title": "Франция",
+    "url": "https://www.globalprice.info/?p=francia/cenu-v-parige-vo-francii-na-edu"
+  },
+  {
+    "title": "Финляндия",
+    "url": "https://www.globalprice.info/?p=finlyandia/ceny-helsinki-na-edu-kafe"
+  },
+  {
+    "title": "Филиппины",
+    "url": "https://www.globalprice.info/?p=philippines/-review-prices-in-philippines"
+  },
+  {
+    "title": "Хорватия",
+    "url": "https://www.globalprice.info/?p=horvatia/-review-tseny-v-horvatii"
+  },
+  {
+    "title": "Чехия",
+    "url": "https://www.globalprice.info/?p=chekhiya/tsenu-v-chekhii-prage-v-supermarkete"
+  },
+  {
+    "title": "Черногория",
+    "url": "https://www.globalprice.info/?p=chernogoria/tsenu-na-edy-v-restoranah"
+  },
+  {
+    "title": "Чили",
+    "url": "https://www.globalprice.info/?p=chili/santiago-tsenu-na-edu"
+  },
+  {
+    "title": "Швейцария",
+    "url": "https://www.globalprice.info/?p=shvetsaria/tsenu-v-shvetsrii-na-edu"
+  },
+  {
+    "title": "Швеция",
+    "url": "https://www.globalprice.info/?p=shvetsiya/ceny-stokgolm-na-edu-kafe"
+  },
+  {
+    "title": "Шотландия",
+    "url": "https://www.globalprice.info/?p=scotland/edinburg-cenu-na-edu-restoran"
+  },
+  {
+    "title": "Эстония",
+    "url": "https://www.globalprice.info/?p=estonia/tsenu-v-estonii-na-edu-i-zhilie"
+  },
+  {
+    "title": "Эквадор",
+    "url": "https://www.globalprice.info/?p=ekvador/tsenu_v_ekvadore"
+  },
+  {
+    "title": "Япония",
+    "url": "https://www.globalprice.info/?p=yaponiya/tsenu_na_edu_v_yaponii"
+  },
+  {
+    "title": "Ямайка",
+    "url": "https://www.globalprice.info/?p=yamaika/tsenu_na_yamaike"
+  }
+]
