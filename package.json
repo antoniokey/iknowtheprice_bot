@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "start:prod": "node index -p $PORT"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
