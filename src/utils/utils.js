@@ -1,9 +1,21 @@
 const cheerio = require('cheerio');
-const translate = require('translate');
-const { HEADERS_SELECTOR, LIST_SELECTOR, NEW_LINE_SYMBOLS, AVERAGE_PRICE } = require('../constants/constants');
+const translate = require('translatte');
+const {
+  HEADERS_SELECTOR,
+  LIST_SELECTOR,
+  NEW_LINE_SYMBOLS,
+  AVERAGE_PRICE,
+  UNSUTABLE_TRANSLATE_SYMBOLS
+} = require('../constants/constants');
 
 const removeNewLinesAndSpaces = data => {
   return data.replace(NEW_LINE_SYMBOLS, '').trim();
+};
+
+const prepareTranslatedData = translatedData => {
+  const preparedTranslatedData = translatedData.match(UNSUTABLE_TRANSLATE_SYMBOLS)[0];
+
+  return  preparedTranslatedData;
 };
 
 const getHeadersData = $ => {
@@ -94,15 +106,15 @@ const getPageUrl = (language, country, city) => {
 
 const getCountryAndCity = async (incommingPlace, language, i18n) => {
   const incorrectPlaceName = i18n.t('incorrectPlaceName');
-  const [country, city] = incommingPlace.split(', ').map(value => value.toLowerCase());
-  // const translatedCountry = await translate(country, { from: language, to: 'en', engine: '' });
-  // const translatedCity = await translate(city, { from: language, to: 'en' });
-
+  const [country, city] = incommingPlace.split(',').map(value => value.trim());
   if (!country || !city) {
     throw new Error(incorrectPlaceName);
   }
 
-  return { country, city };
+  const translatedCountry = await translate(country, { from: language, to: 'en' });
+  const translatedCity = await translate(city, { from: language, to: 'en' });
+
+  return { country: prepareTranslatedData(translatedCountry.text), city: prepareTranslatedData(translatedCity.text) };
 };
 
 const getAveragePrice = page => {
