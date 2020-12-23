@@ -1,8 +1,9 @@
 welcomeMessage: Вас приветсвует IKnowThePrice бот!
 commandsMessage: Ниже находяться команды, которые можно использовать для работы с ботом.
-getPriceListMessage: Чтобы постмотреть информацию о ценах, напишите название места!
+getPriceListMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город!
 languageQuestionMessage: Какой язык Вы хотите испоользовать? Выберете подходящий язык!
 changeLanguageMessage: Вы выбрали русский язык!
+incorrectPlaceName: Значения страны и города не должны быть пустыми - страна, город!
 
 startActionMessage: /start - Начало работы
 languageActionMessage: /language - Смена языка

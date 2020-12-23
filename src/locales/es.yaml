@@ -1,11 +1,12 @@
 welcomeMessage: ¡Hola desde el bot IKnowThePrice!
 commandsMessage: A continuación se muestran los comandos que puede usar para trabajar con el bot.
-getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar!
+getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar en el formato - país, ciudad!
 languageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
 changeLanguageMessage: ¡Tú eliges el idioma español!
+incorrectPlaceName: Los valores de país y ciudad no deben estar vacíos - ¡país, ciudad!
 
 startActionMessage: /start - Inicio de ejecución
 languageActionMessage: /language - Cambia el idioma
 helpActionMessage: /help - Mostrar todos los comandos
 
-gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incommingPlace} ...
+gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incomingPlace}...

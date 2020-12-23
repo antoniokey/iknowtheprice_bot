@@ -86,16 +86,21 @@ const getPageUrl = (language, country, city) => {
     const protocol = pageUrl.slice(0, 8);
     const domain = pageUrl.slice(8);
 
-    url = `${protocol}${language}.${domain}/${country}/city/${city}/cost-of-living`;
+    url = `${protocol}${language}.${domain}/country/${country}/city/${city}/cost-of-living`;
   }
 
   return url;
 };
 
-const getCountryAndCity = async (incommingPlace, language) => {
+const getCountryAndCity = async (incommingPlace, language, i18n) => {
+  const incorrectPlaceName = i18n.t('incorrectPlaceName');
   const [country, city] = incommingPlace.split(', ').map(value => value.toLowerCase());
   // const translatedCountry = await translate(country, { from: language, to: 'en', engine: '' });
   // const translatedCity = await translate(city, { from: language, to: 'en' });
+
+  if (!country || !city) {
+    throw new Error(incorrectPlaceName);
+  }
 
   return { country, city };
 };

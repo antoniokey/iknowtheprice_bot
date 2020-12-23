@@ -43,10 +43,10 @@ const handleLanguageAction = async ctx => {
 
 const handleText = async ctx => {
   try {
-    const incomingPlace = ctx.message.text;
-    const gettingPriceListMessage = ctx.i18n.t('gettingPriceListMessage', { incomingPlace });
     const language = ctx.i18n.languageCode;
-    const { country, city } = await getCountryAndCity(incomingPlace, language);
+    const incomingPlace = ctx.message.text;
+    const { country, city } = await getCountryAndCity(incomingPlace, language, ctx.i18n);
+    const gettingPriceListMessage = ctx.i18n.t('gettingPriceListMessage', { incomingPlace });
 
     await ctx.reply(gettingPriceListMessage);
 
