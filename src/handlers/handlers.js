@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const { getPriceList } = require('../utils/utils');
 const { LANGUAGE_ACTION_BUTTONS } = require('../constants/constants');
-const { getPageUrl, getCountryAndCity } = require('../utils/utils');
+const { getPageUrl, getCountryAndCity, getAveragePrice } = require('../utils/utils');
 
 const handleLanguage = ctx => {
   const languageQuestionMessage = ctx.i18n.t('languageQuestionMessage');
@@ -53,9 +53,11 @@ const handleText = async ctx => {
     const pageUrl = getPageUrl(language, country, city);
     const webpage = await axios.get(pageUrl);
     const priceList = getPriceList(webpage.data);
+    const averagePrice = getAveragePrice(webpage.data);
+    const priceListPromises = Promise.all(priceList.map(price => ctx.replyWithHTML(price)));
 
-    priceList.forEach(async price => {
-      await ctx.replyWithHTML(price);
+    priceListPromises.then(() => {
+      ctx.replyWithHTML(averagePrice);
     });
   } catch(err) {
     console.log(err.message);

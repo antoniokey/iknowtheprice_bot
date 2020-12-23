@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const translate = require('translate');
-const { HEADERS_SELECTOR, LIST_SELECTOR, NEW_LINE_SYMBOLS } = require('../constants/constants');
+const { HEADERS_SELECTOR, LIST_SELECTOR, NEW_LINE_SYMBOLS, AVERAGE_PRICE } = require('../constants/constants');
 
 const removeNewLinesAndSpaces = data => {
   return data.replace(NEW_LINE_SYMBOLS, '').trim();
@@ -105,4 +105,15 @@ const getCountryAndCity = async (incommingPlace, language, i18n) => {
   return { country, city };
 };
 
-module.exports = { getPriceList, getPageUrl, getCountryAndCity };
+const getAveragePrice = page => {
+  const $ = cheerio.load(page);
+  const averagePrice = `<b>${removeNewLinesAndSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
+
+  return averagePrice;
+};
+
+const replyWithHTML = async (ctx, data) => {
+  ctx.replyWithHTML(data);
+};
+
+module.exports = { getPriceList, getPageUrl, getCountryAndCity, getAveragePrice, replyWithHTML };
