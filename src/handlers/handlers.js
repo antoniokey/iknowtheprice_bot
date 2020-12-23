@@ -2,6 +2,7 @@ const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const { getPriceList } = require('../utils/utils');
 const { LANGUAGE_ACTION_BUTTONS } = require('../constants/constants');
+const { getPageUrl, getCountryAndCity } = require('../utils/utils');
 
 const handleLanguage = ctx => {
   const languageQuestionMessage = ctx.i18n.t('languageQuestionMessage');
@@ -12,7 +13,6 @@ const handleLanguage = ctx => {
 const handleStart = async ctx => {
   const welcomeMessage = ctx.i18n.t('welcomeMessage');
   const commandsMessage = ctx.i18n.t('commandsMessage');
-
   await ctx.reply(welcomeMessage);
   await ctx.reply(commandsMessage);
   await handleHelp(ctx);
@@ -42,18 +42,20 @@ const handleLanguageAction = async ctx => {
 
 const handleText = async ctx => {
   try {
-    const language = ctx.i18n.languageCode;
-    const places = require(`../places/places_${language}.json`);
-    const incomingText = ctx.message.text;
-    const incomingPlace = incomingText[0].toUpperCase() + incomingText.slice(1);
+    const incomingPlace = ctx.message.text;
     const gettingPriceListMessage = ctx.i18n.t('gettingPriceListMessage', { incomingPlace });
+    const language = ctx.i18n.languageCode;
+    const { country, city } = getCountryAndCity(incomingPlace, language);
 
     await ctx.reply(gettingPriceListMessage);
 
-    const url = places.find(place => place.title === incomingPlace).url;
-    const webpage = await axios.get(url);
+    const pageUrl = getPageUrl(language, country, city);
+    const webpage = await axios.get(pageUrl);
+    const priceList = getPriceList(webpage.data);
 
-    await ctx.replyWithHTML(getPriceList(webpage.data));
+    priceList.forEach(async price => {
+      await ctx.replyWithHTML(price);
+    });
   } catch(err) {
     console.log(err.message);
   }

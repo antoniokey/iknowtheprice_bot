@@ -1,24 +1,18 @@
 const cheerio = require('cheerio');
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-const {
-  HEADERS_SELECTOR,
-  LIST_SELECTOR,
-  PLACES_SELECTOR,
-  RU_FILE_NAME,
-  EN_FILE_NAME
-} = require('../constants/constants');
+const translate = require('translate');
+const { HEADERS_SELECTOR, LIST_SELECTOR, NEW_LINE_SYMBOLS } = require('../constants/constants');
+
+const removeNewLinesAndSpaces = data => {
+  return data.replace(NEW_LINE_SYMBOLS, '').trim();
+};
 
 const getHeadersData = $ => {
   try {
     const headers = [];
 
     $(HEADERS_SELECTOR).each((i, elem) => {
-      headers.push({ text: $(elem).text() });
+      headers.push({ text: $(elem).text().trim() });
     });
-
-    headers.pop();
 
     return headers;
   } catch(err) {
@@ -31,11 +25,29 @@ const getListData = $ => {
     const list = [];
 
     $(LIST_SELECTOR).each((i, elem) => {
-      const options = [];
+      const options = {};
+      const prevTag = $(elem).prev()[0].tagName;
 
-      $(elem).children('li').map((i, elem) => options.push({ text: $(elem).text() }));
+      $(elem).children('.col-good-title').each((i, elem) => {
+        options.goodTitle = removeNewLinesAndSpaces($(elem).text());
+      });
 
-      list.push(options);
+      $(elem)
+        .children('.col-price')
+        .children('span')
+        .each((index, elem) => {
+          if (index === 0) {
+            options.goodPrice = removeNewLinesAndSpaces($(elem).text());
+          } else {
+            options.goodPriceCurrency = removeNewLinesAndSpaces($(elem).text());
+          }
+        });
+      
+      if (prevTag === 'h3') {
+        list.push([options]);
+      } else {
+        list[list.length - 1].push(options);
+      }
     });
 
     return list;
@@ -43,31 +55,6 @@ const getListData = $ => {
     console.log(err);
   }
 };
-
-const getPlaces = async pageUrl => {
-  const page = await axios.get(pageUrl);
-  const $ = cheerio.load(page.data);
-  const places = [];
-
-  $(PLACES_SELECTOR).each((index, item) => {
-    const title = $(item).text();
-    const url = `https:${$(item).attr('href')}`;
-
-    places.push({ title, url });
-  });
-
-  return places;
-};
-
-const savePlaces = (places, fileName) => {
-  fs.writeFile(path.join(__dirname, '..', 'places', fileName), JSON.stringify(places), err => {
-    if (err) {
-      throw new Error(err.message);
-    }
-
-    console.log('Places were saved');
-  });
-}
 
 const getPriceList = page => {
   try {
@@ -77,30 +64,40 @@ const getPriceList = page => {
     const priceList = [];
 
     headers.forEach((header, index) => {
-      const markdown = `
-        <b>${header.text}:</b> \n
-        ${list[index].map(option => `${option.text} \n`).join('')}
-      `;
-      
-      priceList.push(markdown);
+      const goodTitle = `<b>${header.text}:</b>\n\n`;
+      const goodPrice = list[index].map(good => `${good.goodTitle} - ${good.goodPrice}${good.goodPriceCurrency}`).join('\n');
+
+      priceList.push(goodTitle + goodPrice);
     });
 
-    return priceList.join('');
+    return priceList;
   } catch(err) {
     console.log(err);
   }
 };
 
-const preparePlacesFiles = async ctx => {
-  const places_ru = fs.existsSync(path.join(__dirname, '..', 'places', RU_FILE_NAME));
-  const places_en = fs.existsSync(path.join(__dirname, '..', 'places', EN_FILE_NAME));
+const getPageUrl = (language, country, city) => {
+  const pageUrl = process.env.PAGE_URL;
+  let url;
 
-  if (!places_ru) {
-    savePlaces(await getPlaces(process.env.WEBPAGE_RU), RU_FILE_NAME);
+  if (language === 'en') {
+    url = `${pageUrl}/country/${country}/city/${city}/cost-of-living`;
+  } else {
+    const protocol = pageUrl.slice(0, 8);
+    const domain = pageUrl.slice(8);
+
+    url = `${protocol}${language}.${domain}/${country}/city/${city}/cost-of-living`;
   }
-  if (!places_en) {
-    savePlaces(await getPlaces(process.env.WEBPAGE_EN), EN_FILE_NAME);
-  }
+
+  return url;
 };
 
-module.exports = { getPriceList, preparePlacesFiles };
+const getCountryAndCity = async (incommingPlace, language) => {
+  const [country, city] = incommingPlace.split(', ').map(value => value.toLowerCase());
+  const translatedCountry = await translate(country, { from: language, to: 'en', engine: '' });
+  const translatedCity = await translate(city, { from: language, to: 'en' });
+
+  return { country: translatedCountry, city: translatedCity };
+};
+
+module.exports = { getPriceList, getPageUrl, getCountryAndCity };

@@ -3,7 +3,6 @@ require('dotenv').config();
 const { Telegraf, session } = require('telegraf');
 const { i18n } = require('./src/config/i18n');
 const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleText } = require('./src/handlers/handlers');
-const { preparePlacesFiles } = require('./src/utils/utils');
 
 const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;
@@ -21,12 +20,12 @@ bot.hears('/start', handleStart);
 bot.hears('/language', handleLanguage);
 bot.hears('/help', handleHelp);
 
-bot.action('en', handleLanguageAction);
 bot.action('ru', handleLanguageAction);
+bot.action('en', handleLanguageAction);
+bot.action('es', handleLanguageAction);
 
 bot.on('text', handleText);
 
 bot
   .launch()
-  .then(() => console.log('The iknowtheprice bot started!'))
-  .then(preparePlacesFiles);
+  .then(() => console.log('The iknowtheprice bot started!'));

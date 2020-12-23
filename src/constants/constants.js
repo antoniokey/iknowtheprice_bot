@@ -1,23 +1,19 @@
 const { Markup } = require('telegraf');
 
-const PLACES_SELECTOR = '#container #center #node .main_menu_column > a';
-const HEADERS_SELECTOR = 'div[id="container"] div[id="node"] h2';
-const LIST_SELECTOR = 'div[id="container"] div[id="node"] > ul';
+const HEADERS_SELECTOR = 'main > div > div > h3';
+const LIST_SELECTOR = 'main > div > div > div[id*="g-"]';
 
-const RU_FILE_NAME = 'places_ru.json';
-const EN_FILE_NAME = 'places_en.json';
+const NEW_LINE_SYMBOLS = /\n/g;
 
 const RU_ACTION_BUTTON = Markup.callbackButton('RU', 'ru');
 const EN_ACTION_BUTTON = Markup.callbackButton('EN', 'en');
 const ES_ACTION_BUTTON = Markup.callbackButton('ES', 'es');
 
-const LANGUAGE_ACTION_BUTTONS = [RU_ACTION_BUTTON, EN_ACTION_BUTTON];
+const LANGUAGE_ACTION_BUTTONS = [RU_ACTION_BUTTON, EN_ACTION_BUTTON, ES_ACTION_BUTTON];
 
 module.exports = {
-  PLACES_SELECTOR,
   HEADERS_SELECTOR,
   LIST_SELECTOR,
-  RU_FILE_NAME,
-  EN_FILE_NAME,
+  NEW_LINE_SYMBOLS,
   LANGUAGE_ACTION_BUTTONS
 };
