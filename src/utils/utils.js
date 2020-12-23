@@ -94,10 +94,10 @@ const getPageUrl = (language, country, city) => {
 
 const getCountryAndCity = async (incommingPlace, language) => {
   const [country, city] = incommingPlace.split(', ').map(value => value.toLowerCase());
-  const translatedCountry = await translate(country, { from: language, to: 'en', engine: '' });
-  const translatedCity = await translate(city, { from: language, to: 'en' });
+  // const translatedCountry = await translate(country, { from: language, to: 'en', engine: '' });
+  // const translatedCity = await translate(city, { from: language, to: 'en' });
 
-  return { country: translatedCountry, city: translatedCity };
+  return { country, city };
 };
 
 module.exports = { getPriceList, getPageUrl, getCountryAndCity };

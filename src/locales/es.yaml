@@ -4,8 +4,8 @@ getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente e
 languageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
 changeLanguageMessage: ¡Tú eliges el idioma español!
 
-startActionMessage: /comienzo - Inicio de ejecución
-languageActionMessage: /idioma - Cambia el idioma
-helpActionMessage: /ayuda - Mostrar todos los comandos
+startActionMessage: /start - Inicio de ejecución
+languageActionMessage: /language - Cambia el idioma
+helpActionMessage: /help - Mostrar todos los comandos
 
 gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incommingPlace} ...

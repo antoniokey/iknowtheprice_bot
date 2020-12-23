@@ -13,6 +13,7 @@ const handleLanguage = ctx => {
 const handleStart = async ctx => {
   const welcomeMessage = ctx.i18n.t('welcomeMessage');
   const commandsMessage = ctx.i18n.t('commandsMessage');
+
   await ctx.reply(welcomeMessage);
   await ctx.reply(commandsMessage);
   await handleHelp(ctx);
@@ -45,7 +46,7 @@ const handleText = async ctx => {
     const incomingPlace = ctx.message.text;
     const gettingPriceListMessage = ctx.i18n.t('gettingPriceListMessage', { incomingPlace });
     const language = ctx.i18n.languageCode;
-    const { country, city } = getCountryAndCity(incomingPlace, language);
+    const { country, city } = await getCountryAndCity(incomingPlace, language);
 
     await ctx.reply(gettingPriceListMessage);
 
