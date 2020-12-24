@@ -15,7 +15,7 @@ const removeNewLinesTralingLeadingSpaces = data => {
 const prepareTranslatedData = translatedData => {
   const preparedTranslatedData = translatedData.match(UNSUTABLE_TRANSLATE_SYMBOLS)[0];
 
-  return preparedTranslatedData;
+  return preparedTranslatedData.toLowerCase();
 };
 
 const getAveragePriceForTwoPersons = averagePriceText => {

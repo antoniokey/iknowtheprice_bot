@@ -22,9 +22,9 @@ describe('Utils', () => {
     const stringWithoutDash = 'WithoutDash';
     const stringWithDash = 'San-Francisco';
     const stringWithOtherSymbols = 'OtherSymbols!!!';
-    const expectedStringWithoutDash = 'WithoutDash';
-    const expectedStringWithDash = 'San-Francisco';
-    const expectedStringWithOtherSymbols = 'OtherSymbols';
+    const expectedStringWithoutDash = 'withoutdash';
+    const expectedStringWithDash = 'san-francisco';
+    const expectedStringWithOtherSymbols = 'othersymbols';
     const preparedStringWithoutDash = prepareTranslatedData(stringWithoutDash);
     const preparedStringWithDash = prepareTranslatedData(stringWithDash);
     const preparedStringWithOtherSymbols = prepareTranslatedData(stringWithOtherSymbols);
@@ -101,52 +101,52 @@ describe('Utils', () => {
     expect(expectedResultEs).toBe(actualResultEs);
   });
 
-  // it('getInformationForAPlace should return object with country, city and amount of persons', async done => {
-  //   const i18n = {
-  //     incorrectPlaceName_en: '',
-  //     incorrectPlaceName_ru: '',
-  //     incorrectPlaceName_es: '',
-  //     language: '',
-  //     t(label) {
-  //       return this[`${label}_${this.language}`];
-  //     }
-  //   };
-  //   const languagesData = {
-  //     en: { country: 'Country', city: 'City' },
-  //     ru: { country: 'Страна', city: 'Город' },
-  //     es: { country: 'país', city: 'Ciudad' },
-  //   }
-  //   const sessionAmountOfPersons = 3;
-  //   const expectedResultEn = {
-  //     country: languagesData.en.country,
-  //     city: languagesData.en.city,
-  //     amountOfPersons: sessionAmountOfPersons
-  //   };
-  //   const expectedResultRu = {
-  //     country: languagesData.en.country,
-  //     city: languagesData.en.city,
-  //     amountOfPersons: sessionAmountOfPersons
-  //   };
-  //   const expectedResultEs = {
-  //     country: languagesData.en.country,
-  //     city: languagesData.en.city,
-  //     amountOfPersons: sessionAmountOfPersons
-  //   };
+  it('getInformationForAPlace should return object with country, city and amount of persons', async done => {
+    const i18n = {
+      incorrectPlaceName_en: '',
+      incorrectPlaceName_ru: '',
+      incorrectPlaceName_es: '',
+      language: '',
+      t(label) {
+        return this[`${label}_${this.language}`];
+      }
+    };
+    const languagesData = {
+      en: { country: 'Country', city: 'City' },
+      ru: { country: 'Страна', city: 'Город' },
+      es: { country: 'País', city: 'Ciudad' },
+    }
+    const sessionAmountOfPersons = 3;
+    const expectedResultEn = {
+      country: languagesData.en.country.toLowerCase(),
+      city: languagesData.en.city.toLowerCase(),
+      amountOfPersons: sessionAmountOfPersons
+    };
+    const expectedResultRu = {
+      country: 'side', // telegraf-i18n does not correctrly translate russian word - country
+      city: languagesData.en.city.toLowerCase(),
+      amountOfPersons: sessionAmountOfPersons
+    };
+    const expectedResultEs = {
+      country: languagesData.en.country.toLowerCase(),
+      city: languagesData.en.city.toLowerCase(),
+      amountOfPersons: sessionAmountOfPersons
+    };
 
-  //   i18n.language = 'en';
-  //   const actualResultEn = await getInformationForAPlace(`${languagesData.en.country}, ${languagesData.en.city}`, i18n, sessionAmountOfPersons);
+    i18n.language = 'en';
+    const actualResultEn = await getInformationForAPlace(`${languagesData.en.country}, ${languagesData.en.city}`, i18n, sessionAmountOfPersons);
 
-  //   i18n.language = 'ru';
-  //   const actualResultRu = await getInformationForAPlace(`${languagesData.ru.country}, ${languagesData.ru.city}`, i18n, sessionAmountOfPersons);
+    i18n.language = 'ru';
+    const actualResultRu = await getInformationForAPlace(`${languagesData.ru.country}, ${languagesData.ru.city}`, i18n, sessionAmountOfPersons);
 
-  //   i18n.language = 'es';
-  //   const actualResultEs = await getInformationForAPlace(`${languagesData.es.country}, ${languagesData.es.city}`, i18n, sessionAmountOfPersons);
+    i18n.language = 'es';
+    const actualResultEs = await getInformationForAPlace(`${languagesData.es.country}, ${languagesData.es.city}`, i18n, sessionAmountOfPersons);
 
-  //   expect(actualResultEn).toEqual(expectedResultEn);
-  //   expect(actualResultRu).toEqual(expectedResultRu);
-  //   expect(actualResultEs).toEqual(expectedResultEs);
+    expect(actualResultEn).toEqual(expectedResultEn);
+    expect(actualResultRu).toEqual(expectedResultRu);
+    expect(actualResultEs).toEqual(expectedResultEs);
 
-  //   done();
-  // });
+    done();
+  });
 
 });
