@@ -15,13 +15,14 @@ const removeNewLinesAndSpaces = data => {
 const prepareTranslatedData = translatedData => {
   const preparedTranslatedData = translatedData.match(UNSUTABLE_TRANSLATE_SYMBOLS)[0];
 
-  return  preparedTranslatedData;
+  return preparedTranslatedData;
 };
 
 const getAveragePriceForTwoPersons = averagePriceText => {
+  const deafultDigitsAfterDot = '00';
   const averagePriceParts = averagePriceText.match(/[0-9]+/g);
 
-  return `${averagePriceParts[0]}.${averagePriceParts[1] ? averagePriceParts[1] : 00}`;
+  return `${averagePriceParts[0]}.${averagePriceParts[1] ? averagePriceParts[1] : deafultDigitsAfterDot}`;
 };
 
 const getAveragePriceForPersons = (averagePriceForTwoPersons, amountOfPersons) => {
@@ -163,4 +164,12 @@ const replyWithHTML = async (ctx, data) => {
   ctx.replyWithHTML(data);
 };
 
-module.exports = { getPriceList, getPageUrl, getInformationForAPlace, getAveragePrice, replyWithHTML };
+module.exports = {
+  getPriceList,
+  getPageUrl,
+  getInformationForAPlace,
+  getAveragePrice,
+  replyWithHTML,
+  prepareTranslatedData,
+  getAveragePriceForTwoPersons
+};
