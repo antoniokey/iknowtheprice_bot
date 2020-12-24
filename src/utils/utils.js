@@ -8,7 +8,7 @@ const {
   UNSUTABLE_TRANSLATE_SYMBOLS
 } = require('../constants/constants');
 
-const removeNewLinesAndSpaces = data => {
+const removeNewLinesTralingLeadingSpaces = data => {
   return data.replace(NEW_LINE_SYMBOLS, '').trim();
 };
 
@@ -27,12 +27,12 @@ const getAveragePriceForTwoPersons = averagePriceText => {
 
 const getAveragePriceForPersons = (averagePriceForTwoPersons, amountOfPersons) => {
   const averagePriceForOnePerson = (averagePriceForTwoPersons / 2).toFixed(2);
-  const averagePriceForPersons = averagePriceForOnePerson * amountOfPersons;
+  const averagePriceForPersons = (averagePriceForOnePerson * amountOfPersons).toFixed(2);
 
-  return averagePriceForPersons;
+  return +averagePriceForPersons;
 };
 
-const getPreparedAveragePriceRespponse = (averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart) => {
+const getPreparedAveragePriceResponse = (averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart) => {
   let preparedAveragePriceResponse;
 
   preparedAveragePriceResponse = averagePriceText.replace(averagePriceReplacementTextPart, '');
@@ -65,7 +65,7 @@ const getListData = $ => {
       const prevTag = $(elem).prev()[0].tagName;
 
       $(elem).children('.col-good-title').each((i, elem) => {
-        options.goodTitle = removeNewLinesAndSpaces($(elem).text());
+        options.goodTitle = removeNewLinesTralingLeadingSpaces($(elem).text());
       });
 
       $(elem)
@@ -73,9 +73,9 @@ const getListData = $ => {
         .children('span')
         .each((index, elem) => {
           if (index === 0) {
-            options.goodPrice = removeNewLinesAndSpaces($(elem).text());
+            options.goodPrice = removeNewLinesTralingLeadingSpaces($(elem).text());
           } else {
-            options.goodPriceCurrency = removeNewLinesAndSpaces($(elem).text());
+            options.goodPriceCurrency = removeNewLinesTralingLeadingSpaces($(elem).text());
           }
         });
       
@@ -112,8 +112,7 @@ const getPriceList = page => {
   }
 };
 
-const getPageUrl = (language, country, city) => {
-  const pageUrl = process.env.PAGE_URL;
+const getPageUrl = (pageUrl, language, country, city) => {
   let url;
 
   if (language === 'en') {
@@ -152,10 +151,10 @@ const getInformationForAPlace = async (incommingPlace, i18n, sessionAmountOfPers
 
 const getAveragePrice = (page, amountOfPersons, averagePriceReplacementTextPart) => {
   const $ = cheerio.load(page);
-  const averagePriceText = `<b>${removeNewLinesAndSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
+  const averagePriceText = `<b>${removeNewLinesTralingLeadingSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
   const averagePriceForTwoPersons = getAveragePriceForTwoPersons(averagePriceText);
   const averagePriceForPersons = getAveragePriceForPersons(averagePriceForTwoPersons, amountOfPersons);
-  const averagePriceResponse = getPreparedAveragePriceRespponse(averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart);
+  const averagePriceResponse = getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart);
 
   return averagePriceResponse;
 };
@@ -171,5 +170,8 @@ module.exports = {
   getAveragePrice,
   replyWithHTML,
   prepareTranslatedData,
-  getAveragePriceForTwoPersons
+  getAveragePriceForTwoPersons,
+  removeNewLinesTralingLeadingSpaces,
+  getAveragePriceForPersons,
+  getPreparedAveragePriceResponse
 };

@@ -46,6 +46,7 @@ const handleLanguageAction = async ctx => {
 const handleText = async ctx => {
   try {
     const { i18n, message, session, replyWithHTML, reply } = ctx;
+    const environmentPageUrl = process.env.PAGE_URL;
     const language = i18n.languageCode;
     const incomingPlace = message.text;
     const sessionAmountOfPersons = session.amountOfPersons;
@@ -55,7 +56,7 @@ const handleText = async ctx => {
 
     await reply(gettingPriceListMessage);
 
-    const pageUrl = getPageUrl(language, country, city);
+    const pageUrl = getPageUrl(environmentPageUrl, language, country, city);
     const webpage = await axios.get(pageUrl);
     const priceList = getPriceList(webpage.data);
     const averagePrice = getAveragePrice(webpage.data, amountOfPersons, averagePriceReplacementTextPart);
