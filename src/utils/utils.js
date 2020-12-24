@@ -18,6 +18,29 @@ const prepareTranslatedData = translatedData => {
   return  preparedTranslatedData;
 };
 
+const getAveragePriceForTwoPersons = averagePriceText => {
+  const averagePriceParts = averagePriceText.match(/[0-9]+/g);
+
+  return `${averagePriceParts[0]}.${averagePriceParts[1] ? averagePriceParts[1] : 00}`;
+};
+
+const getAveragePriceForPersons = (averagePriceForTwoPersons, amountOfPersons) => {
+  const averagePriceForOnePerson = (averagePriceForTwoPersons / 2).toFixed(2);
+  const averagePriceForPersons = averagePriceForOnePerson * amountOfPersons;
+
+  return averagePriceForPersons;
+};
+
+const getPreparedAveragePriceRespponse = (averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart) => {
+  let preparedAveragePriceResponse;
+
+  preparedAveragePriceResponse = averagePriceText.replace(averagePriceReplacementTextPart, '');
+  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/[0-9]+.[0-9]+/, averagePriceForPersons);
+  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/ {2,}/, ' ');
+
+  return preparedAveragePriceResponse;
+};
+
 const getHeadersData = $ => {
   try {
     const headers = [];
@@ -104,28 +127,40 @@ const getPageUrl = (language, country, city) => {
   return url;
 };
 
-const getCountryAndCity = async (incommingPlace, i18n) => {
+const getInformationForAPlace = async (incommingPlace, i18n, sessionAmountOfPersons) => {
   const incorrectPlaceName = i18n.t('incorrectPlaceName');
-  const [country, city] = incommingPlace.split(',').map(value => value.trim());
+  const [country, city, incommingAmountOfPersons] = incommingPlace.split(',').map(value => value.trim());
+  let amountOfPersons = sessionAmountOfPersons;
+
   if (!country || !city) {
     throw new Error(incorrectPlaceName);
+  }
+  if (incommingAmountOfPersons) {
+    amountOfPersons = incommingAmountOfPersons;
   }
 
   const translatedCountry = await translate(country, { to: 'en' });
   const translatedCity = await translate(city, { to: 'en' });
 
-  return { country: prepareTranslatedData(translatedCountry.text), city: prepareTranslatedData(translatedCity.text) };
+  return {
+    country: prepareTranslatedData(translatedCountry.text),
+    city: prepareTranslatedData(translatedCity.text),
+    amountOfPersons
+  };
 };
 
-const getAveragePrice = page => {
+const getAveragePrice = (page, amountOfPersons, averagePriceReplacementTextPart) => {
   const $ = cheerio.load(page);
-  const averagePrice = `<b>${removeNewLinesAndSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
+  const averagePriceText = `<b>${removeNewLinesAndSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
+  const averagePriceForTwoPersons = getAveragePriceForTwoPersons(averagePriceText);
+  const averagePriceForPersons = getAveragePriceForPersons(averagePriceForTwoPersons, amountOfPersons);
+  const averagePriceResponse = getPreparedAveragePriceRespponse(averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart);
 
-  return averagePrice;
+  return averagePriceResponse;
 };
 
 const replyWithHTML = async (ctx, data) => {
   ctx.replyWithHTML(data);
 };
 
-module.exports = { getPriceList, getPageUrl, getCountryAndCity, getAveragePrice, replyWithHTML };
+module.exports = { getPriceList, getPageUrl, getInformationForAPlace, getAveragePrice, replyWithHTML };

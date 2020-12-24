@@ -4,6 +4,7 @@ getPriceListMessage: To get the price list of a place just type the place like -
 languageQuestionMessage: What language do you want to use? Choose the appropriate language!
 changeLanguageMessage: You choose English language!
 incorrectPlaceName: Country and city values must not be empty - country, city!
+averagePriceReplacementTextPart: for two person
 
 startActionMessage: /start - Start of execution
 languageActionMessage: /language - Change the language

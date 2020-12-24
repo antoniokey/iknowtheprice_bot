@@ -4,6 +4,7 @@ getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente e
 languageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
 changeLanguageMessage: ¡Tú eliges el idioma español!
 incorrectPlaceName: Los valores de país y ciudad no deben estar vacíos - ¡país, ciudad!
+averagePriceReplacementTextPart: para dos personas
 
 startActionMessage: /start - Inicio de ejecución
 languageActionMessage: /language - Cambia el idioma

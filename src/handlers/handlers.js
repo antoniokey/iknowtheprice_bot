@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const { getPriceList } = require('../utils/utils');
 const { LANGUAGE_ACTION_BUTTONS } = require('../constants/constants');
-const { getPageUrl, getCountryAndCity, getAveragePrice } = require('../utils/utils');
+const { getPageUrl, getInformationForAPlace, getAveragePrice } = require('../utils/utils');
 
 const handleLanguage = ctx => {
   const languageQuestionMessage = ctx.i18n.t('languageQuestionMessage');
@@ -43,21 +43,24 @@ const handleLanguageAction = async ctx => {
 
 const handleText = async ctx => {
   try {
-    const language = ctx.i18n.languageCode;
-    const incomingPlace = ctx.message.text;
-    const { country, city } = await getCountryAndCity(incomingPlace, ctx.i18n);
-    const gettingPriceListMessage = ctx.i18n.t('gettingPriceListMessage', { incomingPlace });
+    const { i18n, message, session, replyWithHTML, reply } = ctx;
+    const language = i18n.languageCode;
+    const incomingPlace = message.text;
+    const sessionAmountOfPersons = session.amountOfPersons;
+    const averagePriceReplacementTextPart = i18n.t('averagePriceReplacementTextPart');
+    const { country, city, amountOfPersons } = await getInformationForAPlace(incomingPlace, i18n, sessionAmountOfPersons);
+    const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace });
 
-    await ctx.reply(gettingPriceListMessage);
+    await reply(gettingPriceListMessage);
 
     const pageUrl = getPageUrl(language, country, city);
     const webpage = await axios.get(pageUrl);
     const priceList = getPriceList(webpage.data);
-    const averagePrice = getAveragePrice(webpage.data);
-    const priceListPromises = Promise.all(priceList.map(price => ctx.replyWithHTML(price)));
+    const averagePrice = getAveragePrice(webpage.data, amountOfPersons, averagePriceReplacementTextPart);
+    const priceListPromises = Promise.all(priceList.map(price => replyWithHTML(price)));
 
     priceListPromises.then(() => {
-      ctx.replyWithHTML(averagePrice);
+      replyWithHTML(averagePrice);
     });
   } catch(err) {
     console.log(err.message);
