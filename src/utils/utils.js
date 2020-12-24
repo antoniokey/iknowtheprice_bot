@@ -104,15 +104,15 @@ const getPageUrl = (language, country, city) => {
   return url;
 };
 
-const getCountryAndCity = async (incommingPlace, language, i18n) => {
+const getCountryAndCity = async (incommingPlace, i18n) => {
   const incorrectPlaceName = i18n.t('incorrectPlaceName');
   const [country, city] = incommingPlace.split(',').map(value => value.trim());
   if (!country || !city) {
     throw new Error(incorrectPlaceName);
   }
 
-  const translatedCountry = await translate(country, { from: language, to: 'en' });
-  const translatedCity = await translate(city, { from: language, to: 'en' });
+  const translatedCountry = await translate(country, { to: 'en' });
+  const translatedCity = await translate(city, { to: 'en' });
 
   return { country: prepareTranslatedData(translatedCountry.text), city: prepareTranslatedData(translatedCity.text) };
 };
