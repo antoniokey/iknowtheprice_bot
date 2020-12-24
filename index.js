@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const { Telegraf, session } = require('telegraf');
 const { i18n } = require('./src/config/i18n');
-const { botMiddleware } = require('./src/middlewares/middlewares');
 const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleText } = require('./src/handlers/handlers');
 
 const API_TOKEN = process.env.API_TOKEN || '';
@@ -16,7 +15,6 @@ bot.startWebhook(`/bot${API_TOKEN}`, null, PORT);
 
 bot.use(session());
 bot.use(i18n.middleware());
-bot.use(botMiddleware());
 
 bot.hears('/start', handleStart);
 bot.hears('/language', handleLanguage);

@@ -14,6 +14,8 @@ const handleStart = async ctx => {
   const welcomeMessage = ctx.i18n.t('welcomeMessage');
   const commandsMessage = ctx.i18n.t('commandsMessage');
 
+  ctx.session.amountOfPersons = 1;
+
   await ctx.reply(welcomeMessage);
   await ctx.reply(commandsMessage);
   await handleHelp(ctx);
