@@ -1,8 +1,9 @@
 const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
-const { getPriceList } = require('../utils/utils');
+const BotError = require('../config/error-handler');
 const { LANGUAGE_ACTION_BUTTONS } = require('../constants/constants');
-const { getPageUrl, getInformationForAPlace, getAveragePrice } = require('../utils/utils');
+const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList } = require('../utils/bot.utils');
+const { handleError } = require('../utils/error.utils');
 
 const handleLanguage = ctx => {
   const languageQuestionMessage = ctx.i18n.t('languageQuestionMessage');
@@ -44,21 +45,22 @@ const handleLanguageAction = async ctx => {
 };
 
 const handleText = async ctx => {
+  const { i18n, message, session, replyWithHTML, reply } = ctx;
+  const environmentPageUrl = process.env.PAGE_URL;
+
   try {
-    const { i18n, message, session, replyWithHTML, reply } = ctx;
-    const environmentPageUrl = process.env.PAGE_URL;
     const language = i18n.languageCode;
     const incomingPlace = message.text;
     const sessionAmountOfPersons = session.amountOfPersons;
     const averagePriceReplacementTextPart = i18n.t('averagePriceReplacementTextPart');
     const { country, city, amountOfPersons } = await getInformationForAPlace(incomingPlace, i18n, sessionAmountOfPersons);
-    const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace });
+    const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace: `${country}, ${city}` });
 
     await reply(gettingPriceListMessage);
 
     const pageUrl = getPageUrl(environmentPageUrl, language, country, city);
     const webpage = await axios.get(pageUrl);
-    const priceList = getPriceList(webpage.data);
+    const priceList = getPriceList(webpage.data, i18n);
     const averagePrice = getAveragePrice(webpage.data, amountOfPersons, averagePriceReplacementTextPart);
     const priceListPromises = Promise.all(priceList.map(price => replyWithHTML(price)));
 
@@ -66,7 +68,14 @@ const handleText = async ctx => {
       replyWithHTML(averagePrice);
     });
   } catch(err) {
-    console.log(err.message);
+    if (err.isAxiosError) {
+      const message = err.response.status ? i18n.t('placeNotFound') : err.message;
+      const isUserError = err.response.status ? true : false;
+
+      handleError(new BotError(message, isUserError), ctx);
+    } else {
+      handleError(err, ctx);
+    }
   }
 };
 

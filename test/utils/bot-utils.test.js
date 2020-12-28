@@ -6,7 +6,7 @@ const {
   getPreparedAveragePriceResponse,
   getPageUrl,
   getInformationForAPlace
-} = require('../../src/utils/utils');
+} = require('../../src/utils/bot.utils');
 
 describe('Utils', () => {
 

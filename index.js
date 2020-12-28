@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { Telegraf, session } = require('telegraf');
 const { i18n } = require('./src/config/i18n');
-const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleText } = require('./src/handlers/handlers');
+const { handleStart, handleLanguage, handleHelp, handleLanguageAction, handleText } = require('./src/handlers/bot.handlers');
 
 const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;

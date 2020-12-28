@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const translate = require('translatte');
+const BotError = require('../config/error-handler');
 const {
   HEADERS_SELECTOR,
   LIST_SELECTOR,
@@ -42,74 +43,70 @@ const getPreparedAveragePriceResponse = (averagePriceText, averagePriceForPerson
   return preparedAveragePriceResponse;
 };
 
-const getHeadersData = $ => {
-  try {
-    const headers = [];
+const getHeadersData = ($, i18n) => {
+  const headers = [];
 
-    $(HEADERS_SELECTOR).each((i, elem) => {
-      headers.push({ text: $(elem).text().trim() });
-    });
+  $(HEADERS_SELECTOR).each((i, elem) => {
+    headers.push({ text: $(elem).text().trim() });
+  });
 
+  if (headers.length) {
     return headers;
-  } catch(err) {
-    console.log(err);
+  } else {
+    throw new BotError(i18n.t('parsingPageError'), true);
   }
 };
 
-const getListData = $ => {
-  try {
-    const list = [];
+const getListData = ($, i18n) => {
+  const list = [];
 
-    $(LIST_SELECTOR).each((i, elem) => {
-      const options = {};
-      const prevTag = $(elem).prev()[0].tagName;
+  $(LIST_SELECTOR).each((i, elem) => {
+    const options = {};
+    const prevTag = $(elem).prev()[0].tagName;
 
-      $(elem).children('.col-good-title').each((i, elem) => {
-        options.goodTitle = removeNewLinesTralingLeadingSpaces($(elem).text());
+    $(elem).children('.col-good-title').each((i, elem) => {
+      options.goodTitle = removeNewLinesTralingLeadingSpaces($(elem).text());
+    });
+
+    $(elem)
+      .children('.col-price')
+      .children('span')
+      .each((index, elem) => {
+        if (index === 0) {
+          options.goodPrice = removeNewLinesTralingLeadingSpaces($(elem).text());
+        } else {
+          options.goodPriceCurrency = removeNewLinesTralingLeadingSpaces($(elem).text());
+        }
       });
+    
+    if (prevTag === 'h3') {
+      list.push([options]);
+    } else {
+      list[list.length - 1].push(options);
+    }
+  });
 
-      $(elem)
-        .children('.col-price')
-        .children('span')
-        .each((index, elem) => {
-          if (index === 0) {
-            options.goodPrice = removeNewLinesTralingLeadingSpaces($(elem).text());
-          } else {
-            options.goodPriceCurrency = removeNewLinesTralingLeadingSpaces($(elem).text());
-          }
-        });
-      
-      if (prevTag === 'h3') {
-        list.push([options]);
-      } else {
-        list[list.length - 1].push(options);
-      }
-    });
-
+  if (list.length) {
     return list;
-  } catch(err) {
-    console.log(err);
+  } else {
+    throw new BotError(i18n.t('parsingPageError'), true);
   }
 };
 
-const getPriceList = page => {
-  try {
-    const $ = cheerio.load(page);
-    const headers = getHeadersData($);
-    const list = getListData($);
-    const priceList = [];
+const getPriceList = (page, i18n) => {
+  const $ = cheerio.load(page);
+  const headers = getHeadersData($, i18n);
+  const list = getListData($, i18n);
+  const priceList = [];
 
-    headers.forEach((header, index) => {
-      const goodTitle = `<b>${header.text}:</b>\n\n`;
-      const goodPrice = list[index].map(good => `${good.goodTitle} - ${good.goodPrice}${good.goodPriceCurrency}`).join('\n');
+  headers.forEach((header, index) => {
+    const goodTitle = `<b>${header.text}:</b>\n\n`;
+    const goodPrice = list[index].map(good => `${good.goodTitle} - ${good.goodPrice}${good.goodPriceCurrency}`).join('\n');
 
-      priceList.push(goodTitle + goodPrice);
-    });
+    priceList.push(goodTitle + goodPrice);
+  });
 
-    return priceList;
-  } catch(err) {
-    console.log(err);
-  }
+  return priceList;
 };
 
 const getPageUrl = (pageUrl, language, country, city) => {
@@ -133,7 +130,7 @@ const getInformationForAPlace = async (incommingPlace, i18n, sessionAmountOfPers
   let amountOfPersons = sessionAmountOfPersons;
 
   if (!country || !city) {
-    throw new Error(incorrectPlaceName);
+    throw new BotError(incorrectPlaceName, true);
   }
   if (incommingAmountOfPersons) {
     amountOfPersons = incommingAmountOfPersons;
