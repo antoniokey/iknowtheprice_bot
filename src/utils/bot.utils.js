@@ -10,6 +10,10 @@ const {
 } = require('../constants/constants');
 const { getConvertingCurrencyValue, getCurrentCurrencySign } = require('./currency.utils');
 
+const removeUnnecessaryCharactersFromPrice = price => {
+  return price.match(/[0-9]+.[0-9]+/).join('');
+};
+
 const removeNewLinesTralingLeadingSpaces = data => {
   return data.replace(NEW_LINE_SYMBOLS, '').trim();
 };
@@ -61,23 +65,26 @@ const getHeadersData = ($, i18n) => {
 const getListData = ($, i18n, session) => {
   const list = [];
 
-  $(LIST_SELECTOR).each((i, elem) => {
+  $(LIST_SELECTOR).each((i, goodWrapperElement) => {
     const options = {};
-    const prevTag = $(elem).prev()[0].tagName;
+    const prevTag = $(goodWrapperElement).prev()[0].tagName;
 
-    $(elem).children('.col-good-title').each((i, elem) => {
-      options.goodTitle = removeNewLinesTralingLeadingSpaces($(elem).text());
+    $(goodWrapperElement).children('.col-good-title').each((i, goodTitleElement) => {
+      options.goodTitle = removeNewLinesTralingLeadingSpaces($(goodTitleElement).text());
     });
 
-    $(elem)
+    $(goodWrapperElement)
       .children('.col-price')
-      .children('span')
-      .each((index, elem) => {
-        if (index === 0) {
-          options.goodPrice = removeNewLinesTralingLeadingSpaces($(elem).text());
-        } else {
-          options.goodPriceCurrency = getCurrentCurrencySign(session.priceListCurrencyCode);
-        }
+      .each((index, goodPriceElement) => {
+        let priceResult;
+
+        priceResult = $(goodPriceElement).text();
+        priceResult = removeNewLinesTralingLeadingSpaces(priceResult);
+        priceResult = removeUnnecessaryCharactersFromPrice(priceResult);
+        priceResult = priceResult.split(',').join('');
+
+        options.goodPrice = priceResult;
+        options.goodPriceCurrency = getCurrentCurrencySign(session.priceListCurrencyCode);
       });
     
     if (prevTag === 'h3') {
@@ -106,8 +113,8 @@ const getPriceList = async (page, i18n, session) => {
       if (!currencyValuesPromises[index]) {
         currencyValuesPromises[index] = [];
       }
-
-      currencyValuesPromises[index].push(getConvertingCurrencyValue(i18n.languageCode, good.goodPrice));
+      
+      currencyValuesPromises[index].push(getConvertingCurrencyValue(i18n.languageCode, session.priceListCurrencyCode, good.goodPrice));
     });
   });
 

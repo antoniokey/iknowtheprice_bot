@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const Nightmare = require('nightmare');
 const {
   CURRENCY_CONVERTER_VALUE_SELECTOR,
   USD_CURRENCY_CODE,
@@ -10,11 +11,25 @@ const {
   EUR_CURRENCY_SIGN
 } = require('../constants/constants');
 
-const getCurrencyConverterUrl = (pageUrl, fromCurrencyCode, toCurrencyCode, priceValue) => {
-  return `${pageUrl}?from=${fromCurrencyCode}&to=${toCurrencyCode}&sum=${priceValue}&date=&rate=forex`;
+const getCurrencyRatePosition = toCurrencyCode => {
+  switch (toCurrencyCode) {
+    case USD_CURRENCY_CODE: {
+      return 0;
+    }
+    case EUR_CURRENCY_CODE: {
+      return 1;
+    }
+    case RUB_CURRENCY_CODE: {
+      return 3;
+    }
+  }
 };
 
-const getCurrentCurrencyCode = language => {
+const getCurrencyConverterUrl = (pageUrl, fromCurrencyCode, priceValue) => {
+  return `${pageUrl}?val_nbrb=${fromCurrencyCode.toLowerCase()}-${priceValue}`;
+};
+
+const getPriceListCurrencyCode = language => {
   switch (language) {
     case 'en': {
       return USD_CURRENCY_CODE;
@@ -42,16 +57,26 @@ const getCurrentCurrencySign = currencyCode => {
   }
 };
 
-const getConvertingCurrencyValue = async (language, priceValue) => {
-  const currentCurrencyCode = getCurrentCurrencyCode(language);
-  if (currentCurrencyCode === USD_CURRENCY_CODE) {
+const getConvertingCurrencyValue = async (language, currentCurrencyCode, priceValue) => {
+  const nightmare = new Nightmare();
+  const priceListCurrencyCode = getPriceListCurrencyCode(language);
+  if (priceListCurrencyCode === currentCurrencyCode) {
     return priceValue;
   }
-  const page = await axios.get(getCurrencyConverterUrl(process.env.CURRENCY_CONVERTER_PAGE, currentCurrencyCode, USD_CURRENCY_CODE, priceValue));
-  const $ = cheerio.load(page, { decodeEntities: false, normalizeWhitespace: true });
-  const currencyValue = $(CURRENCY_CONVERTER_VALUE_SELECTOR);
+  const currencyRatePosition = getCurrencyRatePosition(currentCurrencyCode);
+  const currencyConverterUrl = getCurrencyConverterUrl(process.env.CURRENCY_CONVERTER_PAGE, priceListCurrencyCode, priceValue);
 
-  return currencyValue;
+  return nightmare
+    .goto(currencyConverterUrl)
+    .wait('body')
+    .evaluate(() => document.querySelector('body').innerHTML)
+    .end()
+    .then(response => {
+      const $ = cheerio.load(response, { decodeEntities: false });
+      const currencyValue = $($(CURRENCY_CONVERTER_VALUE_SELECTOR)[currencyRatePosition]).val();
+
+      return Number(currencyValue).toFixed(2);
+    });
 };
 
 module.exports = { getConvertingCurrencyValue, getCurrentCurrencySign };
