@@ -2,7 +2,9 @@ welcomeMessage: Hello from IKnowThePrice bot!
 commandsMessage: Below are the commands that you can use to work with the bot.
 getPriceListMessage: To get the price list of a place just type the place like - country, city, number of people (cities separated by a space, hyphenated, number of people is optional - default 1)!
 languageQuestionMessage: What language do you want to use? Choose the appropriate language!
+currencyQuestionMessage: What currency do you want to view prices in? Choose the right currency!
 changeLanguageMessage: You choose English language!
+changeCurrencyMessage: You've just selected the ${priceListCurrencyCode} currency!
 incorrectPlaceName: Country and city values must not be empty, for instance - country, city, number of people (cities separated by a space, hyphenated, number of people is optional - default 1)!
 placeNotFound: Can not provide price list for the place you are looking for!
 parsingPageError: Ooops, something went wrong, please try again later!
@@ -10,6 +12,7 @@ averagePriceReplacementTextPart: for two person
 
 startActionMessage: /start - Start of execution
 languageActionMessage: /language - Change the language
+currencyActionMessage: /currency - Change the currency in price list
 helpActionMessage: /help - Display all commands
 
 gettingPriceListMessage: Now the bot is getting all the price in ${incomingPlace}...

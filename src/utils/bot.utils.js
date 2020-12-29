@@ -8,6 +8,7 @@ const {
   AVERAGE_PRICE,
   UNSUTABLE_TRANSLATE_SYMBOLS
 } = require('../constants/constants');
+const { getConvertingCurrencyValue, getCurrentCurrencySign } = require('./currency.utils');
 
 const removeNewLinesTralingLeadingSpaces = data => {
   return data.replace(NEW_LINE_SYMBOLS, '').trim();
@@ -57,7 +58,7 @@ const getHeadersData = ($, i18n) => {
   }
 };
 
-const getListData = ($, i18n) => {
+const getListData = ($, i18n, session) => {
   const list = [];
 
   $(LIST_SELECTOR).each((i, elem) => {
@@ -75,7 +76,7 @@ const getListData = ($, i18n) => {
         if (index === 0) {
           options.goodPrice = removeNewLinesTralingLeadingSpaces($(elem).text());
         } else {
-          options.goodPriceCurrency = removeNewLinesTralingLeadingSpaces($(elem).text());
+          options.goodPriceCurrency = getCurrentCurrencySign(session.priceListCurrencyCode);
         }
       });
     
@@ -93,20 +94,38 @@ const getListData = ($, i18n) => {
   }
 };
 
-const getPriceList = (page, i18n) => {
+const getPriceList = async (page, i18n, session) => {
   const $ = cheerio.load(page);
   const headers = getHeadersData($, i18n);
-  const list = getListData($, i18n);
+  const list = getListData($, i18n, session);
+  const currencyValuesPromises = [];
   const priceList = [];
 
   headers.forEach((header, index) => {
-    const goodTitle = `<b>${header.text}:</b>\n\n`;
-    const goodPrice = list[index].map(good => `${good.goodTitle} - ${good.goodPrice}${good.goodPriceCurrency}`).join('\n');
+    list[index].map(good => {
+      if (!currencyValuesPromises[index]) {
+        currencyValuesPromises[index] = [];
+      }
 
-    priceList.push(goodTitle + goodPrice);
+      currencyValuesPromises[index].push(getConvertingCurrencyValue(i18n.languageCode, good.goodPrice));
+    });
   });
 
-  return priceList;
+  return Promise.all(currencyValuesPromises.map(Promise.all, Promise)).then(convertedPrices => {
+    headers.forEach((header, heaederIndex) => {
+      const headerTitle = `<b>${header.text}:</b>\n\n`;
+      const goodPrice = list[heaederIndex].map((good, goodIndex) => {
+        const { goodTitle, goodPriceCurrency } = good;
+        const convertedPrice = convertedPrices[heaederIndex][goodIndex];
+
+        return `${goodTitle} - ${convertedPrice}${goodPriceCurrency}`;
+      });
+
+      priceList.push(headerTitle + goodPrice.join('\n'));
+    });
+
+    return priceList;
+  });
 };
 
 const getPageUrl = (pageUrl, language, country, city) => {
