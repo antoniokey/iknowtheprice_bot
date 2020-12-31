@@ -13,6 +13,7 @@ const {
   handleSetCurrencyAction,
   handleText
 } = require('./src/handlers/bot.handlers');
+const { handleError } = require('./src/utils/error.utils');
 
 const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;
@@ -46,3 +47,6 @@ bot.on('text', handleText);
 bot
   .launch()
   .then(() => console.log('The iknowtheprice bot started!'));
+
+process.on('uncaughtException', handleError);
+process.on('unhandledRejection', handleError);
