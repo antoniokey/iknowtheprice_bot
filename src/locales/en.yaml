@@ -16,8 +16,8 @@ averagePriceReplacementTextPart: for two person
 startActionMessage: /start - Start of execution
 setLanguageActionMessage: /setlanguage - Set the language
 setCurrencyActionMessage: /setcurrency - Set the currency in a price list
-languageActionMessage: /language - Display currently used language
-currencyActionMessage: /currency - Display currently used currency
+languageActionMessage: /getlanguage - Display currently used language
+currencyActionMessage: /getcurrency - Display currently used currency
 helpActionMessage: /help - Display all commands
 
 gettingPriceListMessage: Now the bot is getting all the price in ${incomingPlace}...

@@ -16,8 +16,8 @@ averagePriceReplacementTextPart: para dos personas
 startActionMessage: /start - Inicio de ejecución
 setLanguageActionMessage: /setlanguage - Seleccione el idioma
 setCurrencyActionMessage: /setcurrency - Establecer la moneda en una lista de precios
-languageActionMessage: /language - Mostrar el idioma utilizado actualmente
-currencyActionMessage: /currency - Mostrar la moneda utilizada actualmente
+languageActionMessage: /getlanguage - Mostrar el idioma utilizado actualmente
+currencyActionMessage: /getcurrency - Mostrar la moneda utilizada actualmente
 helpActionMessage: /help - Mostrar todos los comandos
 
 gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incomingPlace}...

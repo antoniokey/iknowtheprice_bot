@@ -1,5 +1,10 @@
 const cheerio = require('cheerio');
 const translate = require('translatte');
+const xpath = require('xpath');
+const dom = require('xmldom').DOMParser;
+const fs = require('fs');
+const path = require('path');
+const iconv = require('iconv-lite');
 const BotError = require('../config/error-handler');
 const {
   HEADERS_SELECTOR,
@@ -204,6 +209,18 @@ const getInformationalPartOfHelp = i18n => {
 const isBotCommand = incommingMessage => {
   return incommingMessage.startsWith('/') && !PERMITTED_COMMANDS.includes(incommingMessage);
 };
+
+// const getCountry = async city => {
+//   return fs.readFile(path.join(__dirname, '..', '..', 'static', 'geography', 'world-list.xml'), { encoding: 'utf8' }, (err, data) => {
+//     const xml = iconv.decode(data, 'utf8');
+//     const $ = cheerio.load(iconv.decode(xml, 'utf8'), { xmlMode: true });
+//     const cities = $('city');
+//     // const doc = new dom().parseFromString(data.toString());
+//     // const cities = xpath.select('//city');
+
+//     return cities;
+//   });
+// };
 
 module.exports = {
   getPriceList,

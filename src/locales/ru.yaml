@@ -16,8 +16,8 @@ averagePriceReplacementTextPart: для двух человек
 startActionMessage: /start - Начало работы
 setLanguageActionMessage: /setlanguage - Выбрать язык
 setCurrencyActionMessage: /setcurrency - Выбрать валюту для списка цен
-languageActionMessage: /language - Отобразить используемый в данный момент язык
-currencyActionMessage: /currency - Отобразить используемую в данный момент валюту
+languageActionMessage: /getlanguage - Отобразить используемый в данный момент язык
+currencyActionMessage: /getcurrency - Отобразить используемую в данный момент валюту
 helpActionMessage: /help - Отображение используемых команд
 
 gettingPriceListMessage: В данный момент бот собирает информацию о ценах для ${incomingPlace}...

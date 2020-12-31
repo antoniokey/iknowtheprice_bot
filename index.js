@@ -4,8 +4,8 @@ const { Telegraf, session } = require('telegraf');
 const { i18n } = require('./src/config/i18n');
 const {
   handleStart,
-  handleLanguage,
-  handleCurrency,
+  handleGetLanguage,
+  handleGetCurrency,
   handleSetLanguage,
   handleSetCurrency,
   handleHelp,
@@ -28,8 +28,8 @@ bot.use(session());
 bot.use(i18n.middleware());
 
 bot.hears('/start', handleStart);
-bot.hears('/language', handleLanguage);
-bot.hears('/currency', handleCurrency);
+bot.hears('/getlanguage', handleGetLanguage);
+bot.hears('/getcurrency', handleGetCurrency);
 bot.hears('/setlanguage', handleSetLanguage);
 bot.hears('/setcurrency', handleSetCurrency);
 bot.hears('/help', handleHelp);

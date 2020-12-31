@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const BotError = require('../config/error-handler');
 const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS, PERMITTED_COMMANDS } = require('../constants/constants');
-const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp, isBotCommand } = require('../utils/bot.utils');
+const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp, isBotCommand, getCountry } = require('../utils/bot.utils');
 const { handleError } = require('../utils/error.utils');
 
 const handleStart = async ctx => {
@@ -17,13 +17,13 @@ const handleStart = async ctx => {
   await handleHelp(ctx);
 };
 
-const handleLanguage = async ctx => {
+const handleGetLanguage = async ctx => {
   const languageMessage = ctx.i18n.t('choosenLanguageMessage');
 
   await ctx.reply(languageMessage);
 };
 
-const handleCurrency = async ctx => {
+const handleGetCurrency = async ctx => {
   const { session, i18n } = ctx;
   const choosenCurrency = session.priceListCurrencyCode;
   const currencyMessage = i18n.t('choosenCurrencyMessage', { choosenCurrency });
@@ -95,6 +95,7 @@ const handleText = async ctx => {
     const sessionAmountOfPersons = session.amountOfPersons;
     const averagePriceReplacementTextPart = i18n.t('averagePriceReplacementTextPart');
     const { country, city, amountOfPersons } = await getInformationForAPlace(incommingMessage, i18n, sessionAmountOfPersons);
+    // const countryXpath = await getCountry(city);
     const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace: `${country}, ${city}` });
 
     await reply(gettingPriceListMessage);
@@ -128,6 +129,6 @@ module.exports = {
   handleText,
   handleSetCurrency,
   handleSetCurrencyAction,
-  handleLanguage,
-  handleCurrency
+  handleGetLanguage,
+  handleGetCurrency
 };
