@@ -9,6 +9,8 @@ choosenLanguageMessage: Current language - English!
 incorrectPlaceName: Incorrect format of country and city values, for example - country, city, number of people (cities separated by a space separated by a hyphen, the number of people is not necessary - the default is 1)!
 placeNotFound: Can not provide price list for the place you are looking for!
 parsingPageError: Ooops, something went wrong, please try again later!
+incorrectBotCommand: Incorrect command was entered!
+
 averagePriceReplacementTextPart: for two person
 
 startActionMessage: /start - Start of execution

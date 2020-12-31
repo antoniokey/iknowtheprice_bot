@@ -1,8 +1,8 @@
 const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const BotError = require('../config/error-handler');
-const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS } = require('../constants/constants');
-const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp } = require('../utils/bot.utils');
+const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS, PERMITTED_COMMANDS } = require('../constants/constants');
+const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp, isBotCommand } = require('../utils/bot.utils');
 const { handleError } = require('../utils/error.utils');
 
 const handleStart = async ctx => {
@@ -84,11 +84,17 @@ const handleText = async ctx => {
   const environmentPageUrl = process.env.PAGE_URL;
 
   try {
+    const incommingMessage = message.text;
+    if (isBotCommand(incommingMessage)) {
+      const incorrectBotCommand = i18n.t('incorrectBotCommand');
+
+      throw new BotError(incorrectBotCommand, true);
+    }
+
     const language = i18n.languageCode;
-    const incomingPlace = message.text;
     const sessionAmountOfPersons = session.amountOfPersons;
     const averagePriceReplacementTextPart = i18n.t('averagePriceReplacementTextPart');
-    const { country, city, amountOfPersons } = await getInformationForAPlace(incomingPlace, i18n, sessionAmountOfPersons);
+    const { country, city, amountOfPersons } = await getInformationForAPlace(incommingMessage, i18n, sessionAmountOfPersons);
     const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace: `${country}, ${city}` });
 
     await reply(gettingPriceListMessage);

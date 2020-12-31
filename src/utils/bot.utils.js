@@ -6,7 +6,8 @@ const {
   LIST_SELECTOR,
   NEW_LINE_SYMBOLS,
   AVERAGE_PRICE,
-  UNSUTABLE_TRANSLATE_SYMBOLS
+  UNSUTABLE_TRANSLATE_SYMBOLS,
+  PERMITTED_COMMANDS
 } = require('../constants/constants');
 const { getConvertingCurrencyValue, getCurrentCurrencySign } = require('./currency.utils');
 
@@ -200,6 +201,10 @@ const getInformationalPartOfHelp = i18n => {
   return `Informational:\n${languageActionMessage}\n${currencyActionMessage}`;
 };
 
+const isBotCommand = incommingMessage => {
+  return incommingMessage.startsWith('/') && !PERMITTED_COMMANDS.includes(incommingMessage);
+};
+
 module.exports = {
   getPriceList,
   getPageUrl,
@@ -212,5 +217,6 @@ module.exports = {
   getAveragePriceForPersons,
   getPreparedAveragePriceResponse,
   getEditPartOfHelp,
-  getInformationalPartOfHelp
+  getInformationalPartOfHelp,
+  isBotCommand
 };

@@ -6,9 +6,11 @@ setCurrencyQuestionMessage: ¿En qué moneda desea ver los precios? ¡Elija la m
 choosenCurrencyMessage: ¡La moneda actual es ${choosenCurrency}!
 choosenLanguageMessage: ¡El idioma actual es el español!
 
-incorrectPlaceName: Formato incorrecto de valores de país y ciudad, por ejemplo - país, ciudad, número de personas (ciudades separadas por un espacio, con guiones, el número de personas es opcional; el valor predeterminado es 1).
+incorrectPlaceName: Formato incorrecto de los valores de país y ciudad, por ejemplo - país, ciudad, número de personas (ciudades separadas por un espacio, con guiones, el número de personas no es necesario; el valor predeterminado es 1).
 placeNotFound: No se puede proporcionar la lista de precios para el lugar que está buscando.
 parsingPageError: Vaya, algo salió mal. Vuelve a intentarlo más tarde.
+incorrectBotCommand: ¡Se ingresó un comando incorrecto!
+
 averagePriceReplacementTextPart: para dos personas
 
 startActionMessage: /start - Inicio de ejecución
