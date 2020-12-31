@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const BotError = require('../config/error-handler');
 const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS } = require('../constants/constants');
-const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList } = require('../utils/bot.utils');
+const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp } = require('../utils/bot.utils');
 const { handleError } = require('../utils/error.utils');
 
 const handleStart = async ctx => {
@@ -17,50 +17,65 @@ const handleStart = async ctx => {
   await handleHelp(ctx);
 };
 
-const handleLanguage = ctx => {
-  const languageQuestionMessage = ctx.i18n.t('languageQuestionMessage');
+const handleLanguage = async ctx => {
+  const languageMessage = ctx.i18n.t('choosenLanguageMessage');
+
+  await ctx.reply(languageMessage);
+};
+
+const handleCurrency = async ctx => {
+  const { session, i18n } = ctx;
+  const choosenCurrency = session.priceListCurrencyCode;
+  const currencyMessage = i18n.t('choosenCurrencyMessage', { choosenCurrency });
+
+  await ctx.reply(currencyMessage);
+};
+
+const handleSetLanguage = ctx => {
+  const languageQuestionMessage = ctx.i18n.t('setLanguageQuestionMessage');
 
   ctx.reply(languageQuestionMessage, Extra.HTML().markup(Markup.inlineKeyboard(LANGUAGE_ACTION_BUTTONS)));
 };
 
-const handleCurrency = ctx => {
-  const currencyQuestionMessage = ctx.i18n.t('currencyQuestionMessage');
+const handleSetCurrency = async ctx => {
+  const currencyQuestionMessage = ctx.i18n.t('setCurrencyQuestionMessage');
 
-  ctx.reply(currencyQuestionMessage, Extra.HTML().markup(Markup.inlineKeyboard(CURRENCY_ACTION_BUTTONS)));
+  await ctx.reply(currencyQuestionMessage, Extra.HTML().markup(Markup.inlineKeyboard(CURRENCY_ACTION_BUTTONS)));
 };
 
 const handleHelp = async ctx => {
+  const { i18n } = ctx;
+  const editPart = getEditPartOfHelp(i18n);
+  const informationalPart = getInformationalPartOfHelp(i18n);
   const startActionMessage = ctx.i18n.t('startActionMessage');
-  const languageActionMessage = ctx.i18n.t('languageActionMessage');
-  const currencyActionMessage = ctx.i18n.t('currencyActionMessage');
   const helpActionMessage = ctx.i18n.t('helpActionMessage');
   const getPriceListMessage = ctx.i18n.t('getPriceListMessage');
   
-  await ctx.reply(`${startActionMessage}\n${languageActionMessage}\n${currencyActionMessage}\n${helpActionMessage}`);
+  await ctx.reply(`${startActionMessage}\n${helpActionMessage}\n\n${editPart}\n\n${informationalPart}`);
   await ctx.reply(getPriceListMessage);
 };
 
-const handleLanguageAction = async ctx => {
+const handleSetLanguageAction = async ctx => {
   const language = ctx.match;
 
   ctx.i18n.locale(language);
 
-  const changeLanguageMessage = ctx.i18n.t('changeLanguageMessage');
+  const choosenLanguageMessage = ctx.i18n.t('choosenLanguageMessage');
   const getPriceListMessage = ctx.i18n.t('getPriceListMessage');
 
-  await ctx.reply(changeLanguageMessage);
+  await ctx.reply(choosenLanguageMessage);
   await ctx.reply(getPriceListMessage);
 };
 
-const handleCurrencyAction = async ctx => {
-  const currencyCode = ctx.match.toUpperCase();
+const handleSetCurrencyAction = async ctx => {
+  const choosenCurrency = ctx.match.toUpperCase();
 
-  ctx.session.priceListCurrencyCode = currencyCode;
+  ctx.session.priceListCurrencyCode = choosenCurrency;
 
-  const changeCurrencyMessage = ctx.i18n.t('changeCurrencyMessage', { priceListCurrencyCode: currencyCode });
+  const choosenCurrencyMessage = ctx.i18n.t('choosenCurrencyMessage', { choosenCurrency });
   const getPriceListMessage = ctx.i18n.t('getPriceListMessage');
 
-  await ctx.reply(changeCurrencyMessage);
+  await ctx.reply(choosenCurrencyMessage);
   await ctx.reply(getPriceListMessage);
 }
 
@@ -100,11 +115,13 @@ const handleText = async ctx => {
 };
 
 module.exports = {
-  handleLanguage,
+  handleSetLanguage,
   handleStart,
   handleHelp,
-  handleLanguageAction,
+  handleSetLanguageAction,
   handleText,
-  handleCurrency,
-  handleCurrencyAction
+  handleSetCurrency,
+  handleSetCurrencyAction,
+  handleLanguage,
+  handleCurrency
 };

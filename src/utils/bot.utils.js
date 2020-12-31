@@ -186,6 +186,20 @@ const replyWithHTML = async (ctx, data) => {
   ctx.replyWithHTML(data);
 };
 
+const getEditPartOfHelp = i18n => {
+  const setLanguageActionMessage = i18n.t('setLanguageActionMessage');
+  const setCurrencyActionMessage = i18n.t('setCurrencyActionMessage');
+
+  return `Edit:\n${setLanguageActionMessage}\n${setCurrencyActionMessage}`;
+};
+
+const getInformationalPartOfHelp = i18n => {
+  const languageActionMessage = i18n.t('languageActionMessage');
+  const currencyActionMessage = i18n.t('currencyActionMessage');
+
+  return `Informational:\n${languageActionMessage}\n${currencyActionMessage}`;
+};
+
 module.exports = {
   getPriceList,
   getPageUrl,
@@ -196,5 +210,7 @@ module.exports = {
   getAveragePriceForTwoPersons,
   removeNewLinesTralingLeadingSpaces,
   getAveragePriceForPersons,
-  getPreparedAveragePriceResponse
+  getPreparedAveragePriceResponse,
+  getEditPartOfHelp,
+  getInformationalPartOfHelp
 };

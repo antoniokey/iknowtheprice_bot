@@ -1,18 +1,21 @@
 welcomeMessage: Вас приветсвует IKnowThePrice бот!
 commandsMessage: Ниже находяться команды, которые можно использовать для работы с ботом.
 getPriceListMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город, кол-во людей(города разделенные пробелом через дефис, кол-во людей не обязательно - по умолчанию 1)!
-languageQuestionMessage: Какой язык Вы хотите использовать? Выберете подходящий язык!
-currencyQuestionMessage: В какой валюте Вы хотите просматривать цены? Выберете подходящую валюту!
-changeLanguageMessage: Вы выбрали русский язык!
-changeCurrencyMessage: Вы выбрали валюту - ${priceListCurrencyCode}!
-incorrectPlaceName: Значения страны и города не должны быть пустыми, например - страна, город, кол-во людей(города разделенные пробелом через дефис, кол-во людей не обязательно - по умолчанию 1)!
+setLanguageQuestionMessage: Какой язык Вы хотите использовать? Выберете подходящий язык!
+setCurrencyQuestionMessage: В какой валюте Вы хотите просматривать цены? Выберете подходящую валюту!
+choosenCurrencyMessage: Текущая валюта - ${choosenCurrency}!
+choosenLanguageMessage: Текущий язык - русский!
+
+incorrectPlaceName: Не корректный формат значений страны и города, например - страна, город, кол-во людей(города разделенные пробелом через дефис, кол-во людей не обязательно - по умолчанию 1)!
 placeNotFound: Не возможно предоставить прайс-лист на то место, которое вы ищете!
 parsingPageError: Ой, что-то пошло не так, повторите попытку позже!
 averagePriceReplacementTextPart: для двух человек
 
 startActionMessage: /start - Начало работы
-languageActionMessage: /language - Смена языка
-currencyActionMessage: /currency - Изменить валюту в списке цен
+setLanguageActionMessage: /setlanguage - Выбрать язык
+setCurrencyActionMessage: /setcurrency - Выбрать валюту для списка цен
+languageActionMessage: /language - Отобразить используемый в данный момент язык
+currencyActionMessage: /currency - Отобразить используемую в данный момент валюту
 helpActionMessage: /help - Отображение используемых команд
 
 gettingPriceListMessage: В данный момент бот собирает информацию о ценах для ${incomingPlace}...

@@ -6,9 +6,11 @@ const {
   handleStart,
   handleLanguage,
   handleCurrency,
+  handleSetLanguage,
+  handleSetCurrency,
   handleHelp,
-  handleLanguageAction,
-  handleCurrencyAction,
+  handleSetLanguageAction,
+  handleSetCurrencyAction,
   handleText
 } = require('./src/handlers/bot.handlers');
 
@@ -27,15 +29,17 @@ bot.use(i18n.middleware());
 bot.hears('/start', handleStart);
 bot.hears('/language', handleLanguage);
 bot.hears('/currency', handleCurrency);
+bot.hears('/setlanguage', handleSetLanguage);
+bot.hears('/setcurrency', handleSetCurrency);
 bot.hears('/help', handleHelp);
 
-bot.action('ru', handleLanguageAction);
-bot.action('en', handleLanguageAction);
-bot.action('es', handleLanguageAction);
+bot.action('ru', handleSetLanguageAction);
+bot.action('en', handleSetLanguageAction);
+bot.action('es', handleSetLanguageAction);
 
-bot.action('usd', handleCurrencyAction);
-bot.action('rub', handleCurrencyAction);
-bot.action('eur', handleCurrencyAction);
+bot.action('usd', handleSetCurrencyAction);
+bot.action('rub', handleSetCurrencyAction);
+bot.action('eur', handleSetCurrencyAction);
 
 bot.on('text', handleText);
 
