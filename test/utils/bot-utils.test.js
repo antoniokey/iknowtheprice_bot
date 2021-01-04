@@ -116,31 +116,27 @@ describe('Utils', () => {
       ru: { country: 'Страна', city: 'Город' },
       es: { country: 'País', city: 'Ciudad' },
     }
-    const sessionAmountOfPersons = 3;
     const expectedResultEn = {
       country: languagesData.en.country.toLowerCase(),
       city: languagesData.en.city.toLowerCase(),
-      amountOfPersons: sessionAmountOfPersons
     };
     const expectedResultRu = {
       country: 'side', // telegraf-i18n does not correctrly translate russian word - country
       city: languagesData.en.city.toLowerCase(),
-      amountOfPersons: sessionAmountOfPersons
     };
     const expectedResultEs = {
       country: languagesData.en.country.toLowerCase(),
       city: languagesData.en.city.toLowerCase(),
-      amountOfPersons: sessionAmountOfPersons
     };
 
     i18n.language = 'en';
-    const actualResultEn = await getInformationForAPlace(`${languagesData.en.country}, ${languagesData.en.city}`, i18n, sessionAmountOfPersons);
+    const actualResultEn = await getInformationForAPlace(`${languagesData.en.country}, ${languagesData.en.city}`, i18n);
 
     i18n.language = 'ru';
-    const actualResultRu = await getInformationForAPlace(`${languagesData.ru.country}, ${languagesData.ru.city}`, i18n, sessionAmountOfPersons);
+    const actualResultRu = await getInformationForAPlace(`${languagesData.ru.country}, ${languagesData.ru.city}`, i18n);
 
     i18n.language = 'es';
-    const actualResultEs = await getInformationForAPlace(`${languagesData.es.country}, ${languagesData.es.city}`, i18n, sessionAmountOfPersons);
+    const actualResultEs = await getInformationForAPlace(`${languagesData.es.country}, ${languagesData.es.city}`, i18n);
 
     expect(actualResultEn).toEqual(expectedResultEn);
     expect(actualResultRu).toEqual(expectedResultRu);
