@@ -3,7 +3,6 @@ const { Markup } = require('telegraf');
 const HEADERS_SELECTOR = 'main > div > div > h3';
 const LIST_SELECTOR = 'main > div > div > div[id*="g-"]';
 const AVERAGE_PRICE = 'main > div > div > div.estimate > p';
-const CURRENCY_CONVERTER_VALUE_SELECTOR = '.converter-container:nth-child(1) .converter-container__item:nth-child(-n+4) .input_calc';
 
 const USD_CURRENCY_CODE = 'USD';
 const EUR_CURRENCY_CODE = 'EUR';
@@ -39,7 +38,6 @@ module.exports = {
   HEADERS_SELECTOR,
   LIST_SELECTOR,
   AVERAGE_PRICE,
-  CURRENCY_CONVERTER_VALUE_SELECTOR,
   USD_CURRENCY_CODE,
   EUR_CURRENCY_CODE,
   RUB_CURRENCY_CODE,

@@ -2,8 +2,17 @@ const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const BotError = require('../config/error-handler');
 const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS } = require('../constants/constants');
-const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp, isBotCommand, getCountry } = require('../utils/bot.utils');
 const { handleError } = require('../utils/error.utils');
+const {
+  getPageUrl,
+  getInformationForAPlace,
+  getAveragePrice,
+  getPriceList,
+  getEditPartOfHelp,
+  getInformationalPartOfHelp,
+  isBotCommand,
+  getCountry
+} = require('../utils/bot.utils');
 
 const handleStart = async ctx => {
   const { session, i18n, reply } = ctx;
@@ -85,7 +94,7 @@ const handleSetCurrencyAction = async ctx => {
 
 const handleText = async ctx => {
   const { i18n, message, session, replyWithHTML, reply } = ctx;
-  const environmentPageUrl = process.env.PAGE_URL;
+  const environmentPageUrl = process.env.PRICE_LIST_PAGE_URL;
 
   try {
     const incommingMessage = message.text;

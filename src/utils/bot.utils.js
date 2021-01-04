@@ -14,7 +14,7 @@ const {
   UNSUTABLE_TRANSLATE_SYMBOLS,
   PERMITTED_COMMANDS
 } = require('../constants/constants');
-const { getConvertingCurrencyValue, getCurrentCurrencySign } = require('./currency.utils');
+const { getChoosenCurrencySign, getCurrencyRate, getChoosenCurrencyCode } = require('./currency.utils');
 
 const removeUnnecessaryCharactersFromPrice = price => {
   return price.match(/[0-9]+.[0-9]+/).join('');
@@ -90,7 +90,7 @@ const getListData = ($, i18n, session) => {
         priceResult = priceResult.split(',').join('');
 
         options.goodPrice = priceResult;
-        options.goodPriceCurrency = getCurrentCurrencySign(session.priceListCurrencyCode);
+        options.goodPriceCurrency = getChoosenCurrencySign(session.priceListCurrencyCode);
       });
     
     if (prevTag === 'h3') {
@@ -111,34 +111,22 @@ const getPriceList = async (page, i18n, session) => {
   const $ = cheerio.load(page);
   const headers = getHeadersData($, i18n);
   const list = getListData($, i18n, session);
-  const currencyValuesPromises = [];
+  const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, getChoosenCurrencyCode(i18n.languageCode));
   const priceList = [];
 
-  headers.forEach((header, index) => {
-    list[index].map(good => {
-      if (!currencyValuesPromises[index]) {
-        currencyValuesPromises[index] = [];
-      }
-      
-      currencyValuesPromises[index].push(getConvertingCurrencyValue(i18n.languageCode, session.priceListCurrencyCode, good.goodPrice));
-    });
-  });
+  headers.forEach((header, headerIndex) => {
+    const headerTitle = `<b>${header.text}:</b>\n\n`;
+    const goodPrice = list[headerIndex].map(good => {
+      const { goodTitle, goodPrice, goodPriceCurrency } = good;
+      const convertedPrice = (goodPrice * currencyRate).toFixed(2);
 
-  return Promise.all(currencyValuesPromises.map(Promise.all, Promise)).then(convertedPrices => {
-    headers.forEach((header, heaederIndex) => {
-      const headerTitle = `<b>${header.text}:</b>\n\n`;
-      const goodPrice = list[heaederIndex].map((good, goodIndex) => {
-        const { goodTitle, goodPriceCurrency } = good;
-        const convertedPrice = convertedPrices[heaederIndex][goodIndex];
-
-        return `${goodTitle} - ${convertedPrice}${goodPriceCurrency}`;
-      });
-
-      priceList.push(headerTitle + goodPrice.join('\n'));
+      return `${goodTitle} - ${convertedPrice}${goodPriceCurrency}`;
     });
 
-    return priceList;
+    priceList.push(headerTitle + goodPrice.join('\n'));
   });
+
+  return priceList;
 };
 
 const getPageUrl = (pageUrl, language, country, city) => {
