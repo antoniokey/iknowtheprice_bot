@@ -139,16 +139,12 @@ const getPageUrl = (pageUrl, language, country, city) => {
   return url;
 };
 
-const getInformationForAPlace = async (incommingPlace, i18n, sessionAmountOfPersons) => {
+const getInformationForAPlace = async (incommingPlace, i18n) => {
   const incorrectPlaceName = i18n.t('incorrectPlaceName');
-  const [country, city, incommingAmountOfPersons] = incommingPlace.split(',').map(value => value.trim());
-  let amountOfPersons = sessionAmountOfPersons;
+  const [country, city] = incommingPlace.split(',').map(value => value.trim());
 
   if (!country || !city) {
     throw new BotError(incorrectPlaceName, true);
-  }
-  if (incommingAmountOfPersons) {
-    amountOfPersons = incommingAmountOfPersons;
   }
 
   const translatedCountry = await translate(country, { to: 'en' });
@@ -156,8 +152,7 @@ const getInformationForAPlace = async (incommingPlace, i18n, sessionAmountOfPers
 
   return {
     country: prepareTranslatedData(translatedCountry.text),
-    city: prepareTranslatedData(translatedCity.text),
-    amountOfPersons
+    city: prepareTranslatedData(translatedCity.text)
   };
 };
 
@@ -178,19 +173,31 @@ const replyWithHTML = async (ctx, data) => {
 const getEditPartOfHelp = i18n => {
   const setLanguageActionMessage = i18n.t('setLanguageActionMessage');
   const setCurrencyActionMessage = i18n.t('setCurrencyActionMessage');
+  const setAmountOfPersonsActionMessage = i18n.t('setAmountOfPersonsActionMessage');
 
-  return `Edit:\n${setLanguageActionMessage}\n${setCurrencyActionMessage}`;
+  return `Edit:\n${setLanguageActionMessage}\n${setCurrencyActionMessage}\n${setAmountOfPersonsActionMessage}`;
 };
 
 const getInformationalPartOfHelp = i18n => {
   const languageActionMessage = i18n.t('languageActionMessage');
   const currencyActionMessage = i18n.t('currencyActionMessage');
+  const amountOfPersonsActionMessage = i18n.t('amountOfPersonsActionMessage');
 
-  return `Informational:\n${languageActionMessage}\n${currencyActionMessage}`;
+  return `Informational:\n${languageActionMessage}\n${currencyActionMessage}\n${amountOfPersonsActionMessage}`;
 };
 
 const isBotCommand = incommingMessage => {
   return incommingMessage.startsWith('/') && !PERMITTED_COMMANDS.includes(incommingMessage);
+};
+
+const interactionAfterAnAction = async (ctx, actionMessage) => {
+  const getPriceListMessage = ctx.i18n.t('getPriceListMessage');
+
+  if (actionMessage) {
+    await ctx.reply(actionMessage);
+  }
+
+  await ctx.reply(getPriceListMessage);
 };
 
 module.exports = {
@@ -206,5 +213,6 @@ module.exports = {
   getPreparedAveragePriceResponse,
   getEditPartOfHelp,
   getInformationalPartOfHelp,
-  isBotCommand
+  isBotCommand,
+  interactionAfterAnAction
 };

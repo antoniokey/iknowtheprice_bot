@@ -11,7 +11,10 @@ const {
   handleHelp,
   handleSetLanguageAction,
   handleSetCurrencyAction,
-  handleText
+  handleText,
+  handleGetAmountOfPersons,
+  handleSetAmountOfPersons,
+  handleCancel
 } = require('./src/handlers/bot.handlers');
 const { handleError } = require('./src/utils/error.utils');
 
@@ -30,8 +33,10 @@ bot.use(i18n.middleware());
 bot.hears('/start', handleStart);
 bot.hears('/getlanguage', handleGetLanguage);
 bot.hears('/getcurrency', handleGetCurrency);
+bot.hears('/getamountofpersons', handleGetAmountOfPersons);
 bot.hears('/setlanguage', handleSetLanguage);
 bot.hears('/setcurrency', handleSetCurrency);
+bot.hears('/setamountofpersons', handleSetAmountOfPersons);
 bot.hears('/help', handleHelp);
 
 bot.action('ru', handleSetLanguageAction);
@@ -41,6 +46,8 @@ bot.action('es', handleSetLanguageAction);
 bot.action('usd', handleSetCurrencyAction);
 bot.action('rub', handleSetCurrencyAction);
 bot.action('eur', handleSetCurrencyAction);
+
+bot.action('cancel', handleCancel);
 
 bot.on('text', handleText);
 
