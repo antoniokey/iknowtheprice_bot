@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { Extra, Markup } = require('telegraf');
 const BotError = require('../config/error-handler');
-const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS, PERMITTED_COMMANDS } = require('../constants/constants');
+const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS } = require('../constants/constants');
 const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getEditPartOfHelp, getInformationalPartOfHelp, isBotCommand, getCountry } = require('../utils/bot.utils');
 const { handleError } = require('../utils/error.utils');
 
