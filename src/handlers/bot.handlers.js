@@ -10,8 +10,7 @@ const {
   getPriceList,
   getEditPartOfHelp,
   getInformationalPartOfHelp,
-  isBotCommand,
-  getCountry
+  isBotCommand
 } = require('../utils/bot.utils');
 
 const handleStart = async ctx => {
@@ -108,7 +107,6 @@ const handleText = async ctx => {
     const sessionAmountOfPersons = session.amountOfPersons;
     const averagePriceReplacementTextPart = i18n.t('averagePriceReplacementTextPart');
     const { country, city, amountOfPersons } = await getInformationForAPlace(incommingMessage, i18n, sessionAmountOfPersons);
-    // const countryXpath = await getCountry(city);
     const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace: `${country}, ${city}` });
 
     await reply(gettingPriceListMessage);
