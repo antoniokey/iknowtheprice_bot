@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const translate = require('translatte');
 const BotError = require('../config/error-handler');
+const { getChoosenCurrencySign, getCurrencyRate, getChoosenCurrencyCode } = require('./currency.utils');
 const {
   HEADERS_SELECTOR,
   LIST_SELECTOR,
@@ -9,7 +10,6 @@ const {
   UNSUTABLE_TRANSLATE_SYMBOLS,
   PERMITTED_COMMANDS
 } = require('../constants/constants');
-const { getChoosenCurrencySign, getCurrencyRate, getChoosenCurrencyCode } = require('./currency.utils');
 
 const removeUnnecessaryCharactersFromPrice = price => {
   return price.match(/[0-9]+.[0-9]+/).join('');

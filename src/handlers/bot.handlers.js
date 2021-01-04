@@ -3,6 +3,7 @@ const { Extra, Markup } = require('telegraf');
 const BotError = require('../config/error-handler');
 const { LANGUAGE_ACTION_BUTTONS, USD_CURRENCY_CODE, CURRENCY_ACTION_BUTTONS } = require('../constants/constants');
 const { handleError } = require('../utils/error.utils');
+const { fetchPage } = require('../utils/http.utils');
 const {
   getPageUrl,
   getInformationForAPlace,
@@ -112,7 +113,7 @@ const handleText = async ctx => {
     await reply(gettingPriceListMessage);
 
     const pageUrl = getPageUrl(environmentPageUrl, language, country, city);
-    const webpage = await axios.get(pageUrl);
+    const webpage = await fetchPage(pageUrl);
     const priceList = await getPriceList(webpage.data, i18n, session);
     const averagePrice = getAveragePrice(webpage.data, amountOfPersons, averagePriceReplacementTextPart);
     const priceListPromises = Promise.all(priceList.map(price => replyWithHTML(price)));

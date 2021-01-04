@@ -1,4 +1,4 @@
-const axios = require('axios');
+const { fetchCurrencyRate } = require('./http.utils');
 const {
   USD_CURRENCY_CODE,
   RUB_CURRENCY_CODE,
@@ -39,7 +39,7 @@ const getChoosenCurrencySign = currencyCode => {
 const getCurrencyRate = async (toCurrencyCode, fromCurrencyCode) => {
   const coverterApiUrl = `${process.env.CURRENCY_CONVERTER_API}`;
   const coverterApiUrlQuery = `?apiKey=${process.env.CURRENCY_CONVERTER_API_KEY}&q=${fromCurrencyCode}_${toCurrencyCode}&compact=ultra`;
-  const { data: currencyRate } = await axios.get(coverterApiUrl + coverterApiUrlQuery);
+  const { data: currencyRate } = await fetchCurrencyRate(coverterApiUrl + coverterApiUrlQuery);
 
   return currencyRate[`${fromCurrencyCode}_${toCurrencyCode}`];
 };
