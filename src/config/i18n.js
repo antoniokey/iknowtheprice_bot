@@ -4,8 +4,7 @@ const path = require('path');
 const i18n = new TelegrafI18n({
   directory: path.join(__dirname, '..', 'locales'),
   useSession: true,
-  sessionName: 'session',
-  defaultLanguage: 'ru'
+  sessionName: 'session'
 });
 
 module.exports = { i18n };

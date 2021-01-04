@@ -6,14 +6,18 @@ const { getPageUrl, getInformationForAPlace, getAveragePrice, getPriceList, getE
 const { handleError } = require('../utils/error.utils');
 
 const handleStart = async ctx => {
-  const welcomeMessage = ctx.i18n.t('welcomeMessage');
-  const commandsMessage = ctx.i18n.t('commandsMessage');
+  const { session, i18n, reply } = ctx;
 
-  ctx.session.amountOfPersons = 1;
-  ctx.session.priceListCurrencyCode = USD_CURRENCY_CODE;
+  i18n.languageCode = 'ru';
 
-  await ctx.reply(welcomeMessage);
-  await ctx.reply(commandsMessage);
+  const welcomeMessage = i18n.t('welcomeMessage');
+  const commandsMessage = i18n.t('commandsMessage');
+
+  session.amountOfPersons = 1;
+  session.priceListCurrencyCode = USD_CURRENCY_CODE;
+
+  await reply(welcomeMessage);
+  await reply(commandsMessage);
   await handleHelp(ctx);
 };
 
