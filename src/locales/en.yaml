@@ -1,5 +1,5 @@
 welcomeMessage: I will help you show prices for accommodation in different cities! Write /help for help!
-getPriceListMessage: To get the price list of a place just type the place like - country, city, number of people (cities separated by a space, hyphenated, number of people is optional - default 1)!
+getPriceListMessage: To get the price list of a place just type the place like - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
 setLanguageQuestionMessage: What language do you want to use? Choose the appropriate language!
 setCurrencyQuestionMessage: What currency do you want to view prices in? Choose the right currency!
 setAmountOfPersonsQuestionMessage: Set the number of people for whom prices will be displayed!

@@ -1,5 +1,5 @@
 welcomeMessage: ¡Te ayudaré a mostrar los precios de alojamiento en diferentes ciudades! ¡Escriba /ayude para obtener ayuda!
-getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar en el formato - país, ciudad, número de personas (ciudades separadas por un espacio, con guiones, el número de personas es opcional; predeterminado 1)!
+getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar en el formato - país, ciudad, código de estado (ciudades separadas por un espacio, guión, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
 setLanguageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
 setCurrencyQuestionMessage: ¿En qué moneda desea ver los precios? ¡Elija la moneda correcta!
 setAmountOfPersonsQuestionMessage: ¡Especifique el número de personas para las que se mostrarán los precios!
