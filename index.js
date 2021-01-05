@@ -30,14 +30,16 @@ bot.startWebhook(`/bot${API_TOKEN}`, null, PORT);
 bot.use(session());
 bot.use(i18n.middleware());
 
-bot.hears('/start', handleStart);
-bot.hears('/getlanguage', handleGetLanguage);
-bot.hears('/getcurrency', handleGetCurrency);
-bot.hears('/getamountofpersons', handleGetAmountOfPersons);
-bot.hears('/setlanguage', handleSetLanguage);
-bot.hears('/setcurrency', handleSetCurrency);
-bot.hears('/setamountofpersons', handleSetAmountOfPersons);
-bot.hears('/help', handleHelp);
+bot.command('start', handleStart);
+bot.command('help', handleHelp);
+
+bot.action('getLanguage', handleGetLanguage);
+bot.action('getCurrency', handleGetCurrency);
+bot.action('getAmountOfPersons', handleGetAmountOfPersons);
+
+bot.action('setLanguage', handleSetLanguage);
+bot.action('setCurrency', handleSetCurrency);
+bot.action('setAmountOfPersons', handleSetAmountOfPersons);
 
 bot.action('ru', handleSetLanguageAction);
 bot.action('en', handleSetLanguageAction);

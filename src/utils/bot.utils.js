@@ -177,34 +177,19 @@ const replyWithHTML = async (ctx, data) => {
   ctx.replyWithHTML(data);
 };
 
-const getEditPartOfHelp = i18n => {
-  const setLanguageActionMessage = i18n.t('setLanguageActionMessage');
-  const setCurrencyActionMessage = i18n.t('setCurrencyActionMessage');
-  const setAmountOfPersonsActionMessage = i18n.t('setAmountOfPersonsActionMessage');
-
-  return `Edit:\n${setLanguageActionMessage}\n${setCurrencyActionMessage}\n${setAmountOfPersonsActionMessage}`;
-};
-
-const getInformationalPartOfHelp = i18n => {
-  const languageActionMessage = i18n.t('languageActionMessage');
-  const currencyActionMessage = i18n.t('currencyActionMessage');
-  const amountOfPersonsActionMessage = i18n.t('amountOfPersonsActionMessage');
-
-  return `Informational:\n${languageActionMessage}\n${currencyActionMessage}\n${amountOfPersonsActionMessage}`;
-};
-
 const isBotCommand = incommingMessage => {
   return incommingMessage.startsWith('/') && !PERMITTED_COMMANDS.includes(incommingMessage);
 };
 
 const interactionAfterAnAction = async (ctx, actionMessage) => {
-  const getPriceListMessage = ctx.i18n.t('getPriceListMessage');
+  ctx.reply(actionMessage);
+};
 
-  if (actionMessage) {
-    await ctx.reply(actionMessage);
-  }
+const showPriceListMessage = async ctx => {
+  const { reply, i18n } = ctx;
+  const getPriceListMessage = i18n.t('getPriceListMessage');
 
-  await ctx.reply(getPriceListMessage);
+  reply(getPriceListMessage);
 };
 
 module.exports = {
@@ -218,8 +203,7 @@ module.exports = {
   removeNewLinesTralingLeadingSpaces,
   getAveragePriceForPersons,
   getPreparedAveragePriceResponse,
-  getEditPartOfHelp,
-  getInformationalPartOfHelp,
   isBotCommand,
-  interactionAfterAnAction
+  interactionAfterAnAction,
+  showPriceListMessage
 };

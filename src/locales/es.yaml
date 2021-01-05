@@ -1,5 +1,4 @@
-welcomeMessage: ¡Te ayudaré a mostrar los precios de alojamiento en diferentes ciudades!
-commandsMessage: A continuación se muestran los comandos que puede usar para trabajar con el bot.
+welcomeMessage: ¡Te ayudaré a mostrar los precios de alojamiento en diferentes ciudades! ¡Escriba /ayude para obtener ayuda!
 getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar en el formato - país, ciudad, número de personas (ciudades separadas por un espacio, con guiones, el número de personas es opcional; predeterminado 1)!
 setLanguageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
 setCurrencyQuestionMessage: ¿En qué moneda desea ver los precios? ¡Elija la moneda correcta!
@@ -8,20 +7,24 @@ choosenCurrencyMessage: ¡La moneda actual es ${choosenCurrency}!
 choosenLanguageMessage: ¡El idioma actual es el español!
 choosenAmountOfPersonsMessage: ¡Cantidad de personas - ${choosenAmountOfPersons}!
 
-incorrectPlaceName: Formato incorrecto de los valores de país y ciudad, por ejemplo - país, ciudad, número de personas (ciudades separadas por un espacio, con guiones, el número de personas no es necesario; el valor predeterminado es 1).
+incorrectPlaceName: ¡Formato incorrecto de los valores de país y ciudad, por ejemplo - país, ciudad, código de estado (ciudades separadas por un espacio, guión, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
 placeNotFound: No se puede proporcionar la lista de precios para el lugar que está buscando.
 parsingPageError: Vaya, algo salió mal. Vuelve a intentarlo más tarde.
 incorrectBotCommand: ¡Se ingresó un comando incorrecto!
 
 averagePriceReplacementTextPart: para dos personas
 
-startActionMessage: /start - Inicio de ejecución
-setLanguageActionMessage: /setlanguage - Seleccione el idioma
-setCurrencyActionMessage: /setcurrency - Establecer la moneda en una lista de precios
-setAmountOfPersonsActionMessage: /setamountofpersons - Especifique la cantidad de personas para ver los precios
-languageActionMessage: /getlanguage - Mostrar el idioma utilizado actualmente
-currencyActionMessage: /getcurrency - Mostrar la moneda utilizada actualmente
-amountOfPersonsActionMessage: /getamountofpersons - Mostrar cantidad de personas
 helpActionMessage: /help - Mostrar todos los comandos
+
+displayLanguageButtonText: Mostrar el idioma actual
+displayCurrencyButtonText: Mostrar la moneda actual
+displayAmountOfPersonsButtonText: Mostrar la cantidad actual de personas
+setLanguageButtonText: Establecer un idioma
+setCurrencyButtonText: Establecer una moneda
+setAmountOfPersonsButtonText: Cantidad fija de personas
+ruLanguageButton: Ruso
+enLanguageButton: Inglés
+esLanguageButton: Español
+cancelButtonText: Cancelar
 
 gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incomingPlace}...

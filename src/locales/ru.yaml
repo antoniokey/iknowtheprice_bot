@@ -1,5 +1,4 @@
-welcomeMessage: Я помогу показать цены на проживание в разных городах!
-commandsMessage: Ниже находяться команды, которые можно использовать для работы с ботом.
+welcomeMessage: Я помогу показать цены на проживание в разных городах! Напишите /help для помощи!
 getPriceListMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город, кол-во людей(города разделенные пробелом через дефис, кол-во людей не обязательно - по умолчанию 1)!
 setLanguageQuestionMessage: Какой язык Вы хотите использовать? Выберете подходящий язык!
 setCurrencyQuestionMessage: В какой валюте Вы хотите просматривать цены? Выберете подходящую валюту!
@@ -8,20 +7,24 @@ choosenCurrencyMessage: Текущая валюта - ${choosenCurrency}!
 choosenLanguageMessage: Текущий язык - русский!
 choosenAmountOfPersonsMessage: Количество человек - ${choosenAmountOfPersons}!
 
-incorrectPlaceName: Некорректный формат значений страны и города, например - страна, город, кол-во людей(города разделенные пробелом через дефис, кол-во людей не обязательно - по умолчанию 1)!
+incorrectPlaceName: Некорректный формат значений страны и города, например - страна, город, код штата(города разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
 placeNotFound: Не возможно предоставить прайс-лист на то место, которое вы ищете!
 parsingPageError: Ой, что-то пошло не так, повторите попытку позже!
 incorrectBotCommand: Введена неверная команда!
 
 averagePriceReplacementTextPart: для двух человек
 
-startActionMessage: /start - Начало работы
-setLanguageActionMessage: /setlanguage - Выбрать язык
-setCurrencyActionMessage: /setcurrency - Выбрать валюту для списка цен
-setAmountOfPersonsActionMessage: /setamountofpersons - Указать количество людей для просмотра цен
-languageActionMessage: /getlanguage - Отобразить используемый в данный момент язык
-currencyActionMessage: /getcurrency - Отобразить используемую в данный момент валюту
-amountOfPersonsActionMessage: /getamountofpersons - Отобразить количество людей
 helpActionMessage: /help - Отображение используемых команд
+
+displayLanguageButtonText: Отобразить текущий язык
+displayCurrencyButtonText: Отобразить текущую валюту
+displayAmountOfPersonsButtonText: Отобразить количество выбранных людей
+setLanguageButtonText: Выбрать язык
+setCurrencyButtonText: Выбрать валюту
+setAmountOfPersonsButtonText: Указать количество людей
+ruLanguageButton: Русский
+enLanguageButton: Английский
+esLanguageButton: Испанский
+cancelButtonText: Отмена
 
 gettingPriceListMessage: В данный момент бот собирает информацию о ценах для ${incomingPlace}...
