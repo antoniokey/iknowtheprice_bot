@@ -8,7 +8,7 @@ const {
   EUR_CURRENCY_SIGN
 } = require('../constants/constants');
 
-const getChoosenCurrencyCode = language => {
+const getChosenCurrencyCode = language => {
   switch (language) {
     case 'en': {
       return USD_CURRENCY_CODE;
@@ -22,7 +22,7 @@ const getChoosenCurrencyCode = language => {
   }
 };
 
-const getChoosenCurrencySign = currencyCode => {
+const getChosenCurrencySign = currencyCode => {
   switch (currencyCode) {
     case USD_CURRENCY_CODE: {
       return USD_CURRENCY_SIGN;
@@ -44,4 +44,4 @@ const getCurrencyRate = async (toCurrencyCode, fromCurrencyCode) => {
   return currencyRate[`${fromCurrencyCode}_${toCurrencyCode}`];
 };
 
-module.exports = { getChoosenCurrencyCode, getChoosenCurrencySign, getCurrencyRate };
+module.exports = { getChosenCurrencyCode, getChosenCurrencySign, getCurrencyRate };

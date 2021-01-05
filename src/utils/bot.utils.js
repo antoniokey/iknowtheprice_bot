@@ -1,14 +1,15 @@
 const cheerio = require('cheerio');
 const translate = require('translatte');
 const BotError = require('../config/error-handler');
-const { getChoosenCurrencySign, getCurrencyRate, getChoosenCurrencyCode } = require('./currency.utils');
+const { getChosenCurrencySign, getCurrencyRate, getChosenCurrencyCode } = require('./currency.utils');
 const {
   HEADERS_SELECTOR,
   LIST_SELECTOR,
   NEW_LINE_SYMBOLS,
   AVERAGE_PRICE,
   UNSUTABLE_TRANSLATE_SYMBOLS,
-  PERMITTED_COMMANDS
+  PERMITTED_COMMANDS,
+  USD_CURRENCY_CODE
 } = require('../constants/constants');
 
 const removeUnnecessaryCharactersFromPrice = price => {
@@ -39,12 +40,13 @@ const getAveragePriceForPersons = (averagePriceForTwoPersons, amountOfPersons) =
   return +averagePriceForPersons;
 };
 
-const getPreparedAveragePriceResponse = (averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart) => {
+const getPreparedAveragePriceResponse = (averagePriceText, averagePriceForPersons, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPart) => {
   let preparedAveragePriceResponse;
 
   preparedAveragePriceResponse = averagePriceText.replace(averagePriceReplacementTextPart, '');
-  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/[0-9]+.[0-9]+/, averagePriceForPersons);
+  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/[0-9]+.[0-9]+/, (averagePriceForPersons * currencyRate).toFixed(2));
   preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/ {2,}/, ' ');
+  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(USD_CURRENCY_CODE, priceListCurrencyCode);
 
   return preparedAveragePriceResponse;
 };
@@ -85,7 +87,7 @@ const getListData = ($, i18n, session) => {
         priceResult = priceResult.split(',').join('');
 
         options.goodPrice = priceResult;
-        options.goodPriceCurrency = getChoosenCurrencySign(session.priceListCurrencyCode);
+        options.goodPriceCurrency = getChosenCurrencySign(session.priceListCurrencyCode);
       });
     
     if (prevTag === 'h3') {
@@ -106,7 +108,7 @@ const getPriceList = async (page, i18n, session) => {
   const $ = cheerio.load(page);
   const headers = getHeadersData($, i18n);
   const list = getListData($, i18n, session);
-  const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, getChoosenCurrencyCode(i18n.languageCode));
+  const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, getChosenCurrencyCode(i18n.languageCode));
   const priceList = [];
 
   headers.forEach((header, headerIndex) => {
@@ -163,12 +165,13 @@ const preparePlaceInformation = async (incommingPlace, i18n) => {
   };
 };
 
-const getAveragePrice = (page, amountOfPersons, averagePriceReplacementTextPart) => {
+const getAveragePrice = async (session, page, amountOfPersons, averagePriceReplacementTextPart) => {
+  const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, USD_CURRENCY_CODE);
   const $ = cheerio.load(page);
   const averagePriceText = `<b>${removeNewLinesTralingLeadingSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
   const averagePriceForTwoPersons = getAveragePriceForTwoPersons(averagePriceText);
   const averagePriceForPersons = getAveragePriceForPersons(averagePriceForTwoPersons, amountOfPersons);
-  const averagePriceResponse = getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, averagePriceReplacementTextPart);
+  const averagePriceResponse = getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, currencyRate, session.priceListCurrencyCode, averagePriceReplacementTextPart);
 
   return averagePriceResponse;
 };

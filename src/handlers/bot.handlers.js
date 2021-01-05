@@ -122,7 +122,7 @@ const handleText = async ctx => {
       const pageUrl = getPageUrl(environmentPageUrl, language, country, city, state);
       const webpage = await fetchPage(pageUrl);
       const priceList = await getPriceList(webpage.data, i18n, session);
-      const averagePrice = getAveragePrice(webpage.data, amountOfPersons, averagePriceReplacementTextPart);
+      const averagePrice = await getAveragePrice(session, webpage.data, amountOfPersons, averagePriceReplacementTextPart);
       const priceListPromises = Promise.all(priceList.map(price => replyWithHTML(price)));
 
       priceListPromises.then(() => {

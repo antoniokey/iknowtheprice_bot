@@ -1,3 +1,4 @@
+const { USD_CURRENCY_CODE } = require('../../src/constants/constants');
 const {
   removeNewLinesTralingLeadingSpaces,
   prepareTranslatedData,
@@ -5,7 +6,7 @@ const {
   getAveragePriceForPersons,
   getPreparedAveragePriceResponse,
   getPageUrl,
-  getInformationForAPlace
+  preparePlaceInformation
 } = require('../../src/utils/bot.utils');
 
 describe('Utils', () => {
@@ -61,20 +62,22 @@ describe('Utils', () => {
   });
 
   it('getPreparedAveragePriceResponse should remove unsutable parts of text and leave space on that place', () => {
+    const currencyRate = 1;
+    const priceListCurrencyCode = USD_CURRENCY_CODE;
     const price = 200.00;
     const textEn = `for two person   ${price}`;
     const textRu = `для двух человек   ${price}`;
     const textEs = `para dos personas   ${price}`;
-    const averagePrice = 400;
+    const averagePrice = '400.00';
     const averagePriceReplacementTextPartEn = 'for two person';
     const averagePriceReplacementTextPartRu = 'для двух человек';
     const averagePriceReplacementTextPartEs = 'para dos personas';
     const expectedResultEn = ` ${averagePrice}`;
     const expectedResultRu = ` ${averagePrice}`;
     const expectedResultEs = ` ${averagePrice}`;
-    const actualResultEn = getPreparedAveragePriceResponse(textEn, averagePrice, averagePriceReplacementTextPartEn);
-    const actualResultRu = getPreparedAveragePriceResponse(textRu, averagePrice, averagePriceReplacementTextPartRu);
-    const actualResultEs = getPreparedAveragePriceResponse(textEs, averagePrice, averagePriceReplacementTextPartEs);
+    const actualResultEn = getPreparedAveragePriceResponse(textEn, averagePrice, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPartEn);
+    const actualResultRu = getPreparedAveragePriceResponse(textRu, averagePrice, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPartRu);
+    const actualResultEs = getPreparedAveragePriceResponse(textEs, averagePrice, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPartEs);
 
     expect(actualResultEn).toBe(expectedResultEn);
     expect(actualResultRu).toBe(expectedResultRu);
@@ -101,7 +104,7 @@ describe('Utils', () => {
     expect(expectedResultEs).toBe(actualResultEs);
   });
 
-  it('getInformationForAPlace should return object with country, city and amount of persons', async done => {
+  it('getInformationForAPlace should return object with country, city and nullable state', async done => {
     const i18n = {
       incorrectPlaceName_en: '',
       incorrectPlaceName_ru: '',
@@ -119,24 +122,27 @@ describe('Utils', () => {
     const expectedResultEn = {
       country: languagesData.en.country.toLowerCase(),
       city: languagesData.en.city.toLowerCase(),
+      state: null
     };
     const expectedResultRu = {
       country: 'side', // telegraf-i18n does not correctrly translate russian word - country
       city: languagesData.en.city.toLowerCase(),
+      state: null
     };
     const expectedResultEs = {
       country: languagesData.en.country.toLowerCase(),
       city: languagesData.en.city.toLowerCase(),
+      state: null
     };
 
     i18n.language = 'en';
-    const actualResultEn = await getInformationForAPlace(`${languagesData.en.country}, ${languagesData.en.city}`, i18n);
+    const actualResultEn = await preparePlaceInformation(`${languagesData.en.country}, ${languagesData.en.city}`, i18n);
 
     i18n.language = 'ru';
-    const actualResultRu = await getInformationForAPlace(`${languagesData.ru.country}, ${languagesData.ru.city}`, i18n);
+    const actualResultRu = await preparePlaceInformation(`${languagesData.ru.country}, ${languagesData.ru.city}`, i18n);
 
     i18n.language = 'es';
-    const actualResultEs = await getInformationForAPlace(`${languagesData.es.country}, ${languagesData.es.city}`, i18n);
+    const actualResultEs = await preparePlaceInformation(`${languagesData.es.country}, ${languagesData.es.city}`, i18n);
 
     expect(actualResultEn).toEqual(expectedResultEn);
     expect(actualResultRu).toEqual(expectedResultRu);
