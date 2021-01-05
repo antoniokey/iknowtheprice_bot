@@ -1,21 +1,7 @@
-welcomeMessage: Я помогу показать цены на проживание в разных городах! Напишите /help для помощи!
-getPriceListMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город, код штата(города разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
-setLanguageQuestionMessage: Какой язык Вы хотите использовать? Выберете подходящий язык!
-setCurrencyQuestionMessage: В какой валюте Вы хотите просматривать цены? Выберете подходящую валюту!
-setAmountOfPersonsQuestionMessage: Укажите количество человек, для которых будут отображены цены!
-choosenCurrencyMessage: Текущая валюта - ${choosenCurrency}!
-choosenLanguageMessage: Текущий язык - русский!
-choosenAmountOfPersonsMessage: Количество человек - ${choosenAmountOfPersons}!
-
-incorrectPlaceName: Некорректный формат значений страны и города, например - страна, город, код штата(города разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
-placeNotFound: Не возможно предоставить прайс-лист на то место, которое вы ищете!
-parsingPageError: Ой, что-то пошло не так, повторите попытку позже!
-incorrectBotCommand: Введена неверная команда!
-
-averagePriceReplacementTextPart: для двух человек
-
+# Commands
 helpActionMessage: /help - Отображение используемых команд
 
+# Menu buttons
 displayLanguageButtonText: Отобразить текущий язык
 displayCurrencyButtonText: Отобразить текущую валюту
 displayAmountOfPersonsButtonText: Отобразить количество выбранных людей
@@ -27,4 +13,24 @@ enLanguageButton: Английский
 esLanguageButton: Испанский
 cancelButtonText: Отмена
 
+# Buttons menu actions
+setLanguageQuestionMessage: Какой язык Вы хотите использовать? Выберете подходящий язык!
+setCurrencyQuestionMessage: В какой валюте Вы хотите просматривать цены? Выберете подходящую валюту!
+setAmountOfPersonsQuestionMessage: Укажите количество человек, для которых будут отображены цены!
+chosenCurrencyMessage: Текущая валюта - ${chosenCurrency}!
+chosenLanguageMessage: Текущий язык - русский!
+chosenAmountOfPersonsMessage: Количество человек - ${chosenAmountOfPersons}!
+
+# Text for users
+welcomeMessage: Я помогу показать цены на проживание в разных городах! Напишите /help для помощи!
+getPriceListMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город, код штата(города разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
 gettingPriceListMessage: В данный момент бот собирает информацию о ценах для ${incomingPlace}...
+
+# Errors
+incorrectPlaceName: Некорректный формат значений страны и города, например - страна, город, код штата(города разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
+placeNotFound: Не возможно предоставить прайс-лист на то место, которое вы ищете!
+parsingPageError: Ой, что-то пошло не так, повторите попытку позже!
+incorrectBotCommand: Введена неверная команда!
+
+# Code helpers
+averagePriceReplacementTextPart: для двух человек

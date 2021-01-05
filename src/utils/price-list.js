@@ -1,27 +1,20 @@
 const cheerio = require('cheerio');
 const translate = require('translatte');
 const BotError = require('../config/error-handler');
-const { getChosenCurrencySign, getCurrencyRate, getChosenCurrencyCode } = require('./currency.utils');
-const {
-  HEADERS_SELECTOR,
-  LIST_SELECTOR,
-  NEW_LINE_SYMBOLS,
-  AVERAGE_PRICE,
-  UNSUTABLE_TRANSLATE_SYMBOLS,
-  PERMITTED_COMMANDS,
-  USD_CURRENCY_CODE
-} = require('../constants/constants');
+const { Currency, Regex, Selector, Language } = require('../enum');
+const permittedCommands = require('../constants/permitted-commands');
+const { getChosenCurrencySign, getCurrencyRate, getChosenCurrencyCode } = require('./currency');
 
 const removeUnnecessaryCharactersFromPrice = price => {
   return price.match(/[0-9]+.[0-9]+/).join('');
 };
 
 const removeNewLinesTralingLeadingSpaces = data => {
-  return data.replace(NEW_LINE_SYMBOLS, '').trim();
+  return data.replace(Regex.NEW_LINE_SYMBOLS, '').trim();
 };
 
 const prepareTranslatedData = translatedData => {
-  const preparedTranslatedData = translatedData.match(UNSUTABLE_TRANSLATE_SYMBOLS)[0];
+  const preparedTranslatedData = translatedData.match(Regex.UNSUTABLE_TRANSLATE_SYMBOLS)[0];
 
   return preparedTranslatedData.toLowerCase();
 };
@@ -46,29 +39,29 @@ const getPreparedAveragePriceResponse = (averagePriceText, averagePriceForPerson
   preparedAveragePriceResponse = averagePriceText.replace(averagePriceReplacementTextPart, '');
   preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/[0-9]+.[0-9]+/, (averagePriceForPersons * currencyRate).toFixed(2));
   preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/ {2,}/, ' ');
-  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(USD_CURRENCY_CODE, priceListCurrencyCode);
+  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(Currency.USD_CURRENCY_CODE, priceListCurrencyCode);
 
   return preparedAveragePriceResponse;
 };
 
-const getHeadersData = ($, i18n) => {
+const getHeadersData = (parsingPageError, $) => {
   const headers = [];
 
-  $(HEADERS_SELECTOR).each((i, elem) => {
+  $(Selector.HEADERS_SELECTOR).each((i, elem) => {
     headers.push({ text: $(elem).text().trim() });
   });
 
   if (headers.length) {
     return headers;
   } else {
-    throw new BotError(i18n.t('parsingPageError'), true);
+    throw new BotError(parsingPageError, true);
   }
 };
 
-const getListData = ($, i18n, session) => {
+const getListData = (parsingPageError, $, session) => {
   const list = [];
 
-  $(LIST_SELECTOR).each((i, goodWrapperElement) => {
+  $(Selector.LIST_SELECTOR).each((i, goodWrapperElement) => {
     const options = {};
     const prevTag = $(goodWrapperElement).prev()[0].tagName;
 
@@ -100,14 +93,14 @@ const getListData = ($, i18n, session) => {
   if (list.length) {
     return list;
   } else {
-    throw new BotError(i18n.t('parsingPageError'), true);
+    throw new BotError(parsingPageError, true);
   }
 };
 
 const getPriceList = async (page, i18n, session) => {
   const $ = cheerio.load(page);
-  const headers = getHeadersData($, i18n);
-  const list = getListData($, i18n, session);
+  const headers = getHeadersData(i18n.t('parsingPageError'), $);
+  const list = getListData(i18n.t('parsingPageError'), $, session);
   const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, getChosenCurrencyCode(i18n.languageCode));
   const priceList = [];
 
@@ -155,8 +148,8 @@ const preparePlaceInformation = async (incommingPlace, i18n) => {
     throw new BotError(incorrectPlaceName, true);
   }
 
-  const translatedCountry = await translate(country, { to: 'en' });
-  const translatedCity = await translate(city, { to: 'en' });
+  const translatedCountry = await translate(country, { to: Language.EN });
+  const translatedCity = await translate(city, { to: Language.EN });
 
   return {
     country: prepareTranslatedData(translatedCountry.text),
@@ -165,23 +158,20 @@ const preparePlaceInformation = async (incommingPlace, i18n) => {
   };
 };
 
-const getAveragePrice = async (session, page, amountOfPersons, averagePriceReplacementTextPart) => {
-  const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, USD_CURRENCY_CODE);
+const getAveragePrice = async (session, page, averagePriceReplacementTextPart) => {
+  const { priceListCurrencyCode, amountOfPersons } = session;
+  const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, Currency.USD_CURRENCY_CODE);
   const $ = cheerio.load(page);
-  const averagePriceText = `<b>${removeNewLinesTralingLeadingSpaces($($(AVERAGE_PRICE)[0]).text())}</b>`;
+  const averagePriceText = `<b>${removeNewLinesTralingLeadingSpaces($($(Selector.AVERAGE_PRICE)[0]).text())}</b>`;
   const averagePriceForTwoPersons = getAveragePriceForTwoPersons(averagePriceText);
   const averagePriceForPersons = getAveragePriceForPersons(averagePriceForTwoPersons, amountOfPersons);
-  const averagePriceResponse = getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, currencyRate, session.priceListCurrencyCode, averagePriceReplacementTextPart);
+  const averagePriceResponse = getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPart);
 
   return averagePriceResponse;
 };
 
-const replyWithHTML = async (ctx, data) => {
-  ctx.replyWithHTML(data);
-};
-
 const isBotCommand = incommingMessage => {
-  return incommingMessage.startsWith('/') && !PERMITTED_COMMANDS.includes(incommingMessage);
+  return incommingMessage.startsWith('/') && !permittedCommands.includes(incommingMessage);
 };
 
 const interactionAfterAnAction = async (ctx, actionMessage) => {
@@ -200,7 +190,6 @@ module.exports = {
   getPageUrl,
   preparePlaceInformation,
   getAveragePrice,
-  replyWithHTML,
   prepareTranslatedData,
   getAveragePriceForTwoPersons,
   removeNewLinesTralingLeadingSpaces,

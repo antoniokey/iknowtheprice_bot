@@ -2,21 +2,21 @@ require('dotenv').config();
 
 const { Telegraf, session } = require('telegraf');
 const { i18n } = require('./src/config/i18n');
+const { Currency, Language, Action, Command } = require('./src/enum');
+const { handleError } = require('./src/utils/error');
+const { handleStart, handleHelp } = require('./src/handlers/command');
+const { handlePriceList } = require('./src/handlers/price-list');
 const {
-  handleStart,
   handleGetLanguage,
   handleGetCurrency,
+  handleGetAmountOfPersons,
   handleSetLanguage,
   handleSetCurrency,
-  handleHelp,
+  handleSetAmountOfPersons,
   handleSetLanguageAction,
   handleSetCurrencyAction,
-  handleText,
-  handleGetAmountOfPersons,
-  handleSetAmountOfPersons,
   handleCancel
-} = require('./src/handlers/bot.handlers');
-const { handleError } = require('./src/utils/error.utils');
+} = require('./src/handlers/menu');
 
 const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;
@@ -30,28 +30,28 @@ bot.startWebhook(`/bot${API_TOKEN}`, null, PORT);
 bot.use(session());
 bot.use(i18n.middleware());
 
-bot.command('start', handleStart);
-bot.command('help', handleHelp);
+bot.command(Command.START, handleStart);
+bot.command(Command.HELP, handleHelp);
 
-bot.action('getLanguage', handleGetLanguage);
-bot.action('getCurrency', handleGetCurrency);
-bot.action('getAmountOfPersons', handleGetAmountOfPersons);
+bot.action(Action.GET_LANGUAGE, handleGetLanguage);
+bot.action(Action.GET_CURRENCY, handleGetCurrency);
+bot.action(Action.GET_AMOUNT_OF_PERSONS, handleGetAmountOfPersons);
 
-bot.action('setLanguage', handleSetLanguage);
-bot.action('setCurrency', handleSetCurrency);
-bot.action('setAmountOfPersons', handleSetAmountOfPersons);
+bot.action(Action.SET_LANGUAGE, handleSetLanguage);
+bot.action(Action.SET_CURRENCY, handleSetCurrency);
+bot.action(Action.SET_AMOUNT_OF_PERSONS, handleSetAmountOfPersons);
 
-bot.action('ru', handleSetLanguageAction);
-bot.action('en', handleSetLanguageAction);
-bot.action('es', handleSetLanguageAction);
+bot.action(Language.RU, handleSetLanguageAction);
+bot.action(Language.EN, handleSetLanguageAction);
+bot.action(Language.ES, handleSetLanguageAction);
 
-bot.action('usd', handleSetCurrencyAction);
-bot.action('rub', handleSetCurrencyAction);
-bot.action('eur', handleSetCurrencyAction);
+bot.action(Currency.USD_CURRENCY_CODE.toLowerCase(), handleSetCurrencyAction);
+bot.action(Currency.RUB_CURRENCY_CODE.toLowerCase(), handleSetCurrencyAction);
+bot.action(Currency.EUR_CURRENCY_CODE.toLowerCase(), handleSetCurrencyAction);
 
-bot.action('cancel', handleCancel);
+bot.action(Action.CANCEL, handleCancel);
 
-bot.on('text', handleText);
+bot.on('text', handlePriceList);
 
 bot
   .launch()

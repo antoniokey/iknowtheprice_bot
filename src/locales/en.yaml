@@ -1,21 +1,7 @@
-welcomeMessage: I will help you show prices for accommodation in different cities! Write /help for help!
-getPriceListMessage: To get the price list of a place just type the place like - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
-setLanguageQuestionMessage: What language do you want to use? Choose the appropriate language!
-setCurrencyQuestionMessage: What currency do you want to view prices in? Choose the right currency!
-setAmountOfPersonsQuestionMessage: Set the number of people for whom prices will be displayed!
-choosenCurrencyMessage: Current currency - ${choosenCurrency}!
-choosenLanguageMessage: Current language - English!
-choosenAmountOfPersonsMessage: Amount of persons - ${choosenAmountOfPersons}!
-
-incorrectPlaceName: Incorrect format of country and city values, for example - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
-placeNotFound: Can not provide price list for the place you are looking for!
-parsingPageError: Ooops, something went wrong, please try again later!
-incorrectBotCommand: Incorrect command was entered!
-
-averagePriceReplacementTextPart: for two person
-
+# Commands
 helpActionMessage: /help - Display all commands
 
+# Menu buttons
 displayLanguageButtonText: Display the current language
 displayCurrencyButtonText: Display the current currency
 displayAmountOfPersonsButtonText: Display the current amount of persons
@@ -27,4 +13,24 @@ enLanguageButton: English
 esLanguageButton: Spanish
 cancelButtonText: Cancel
 
+# Buttons menu actions
+setLanguageQuestionMessage: What language do you want to use? Choose the appropriate language!
+setCurrencyQuestionMessage: What currency do you want to view prices in? Choose the right currency!
+setAmountOfPersonsQuestionMessage: Set the number of people for whom prices will be displayed!
+chosenCurrencyMessage: Current currency - ${chosenCurrency}!
+chosenLanguageMessage: Current language - English!
+chosenAmountOfPersonsMessage: Amount of persons - ${chosenAmountOfPersons}!
+
+# Text for users
+welcomeMessage: I will help you show prices for accommodation in different cities! Write /help for help!
+getPriceListMessage: To get the price list of a place just type the place like - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
 gettingPriceListMessage: Now the bot is getting all the price in ${incomingPlace}...
+
+# Errors
+incorrectPlaceName: Incorrect format of country and city values, for example - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
+placeNotFound: Can not provide price list for the place you are looking for!
+parsingPageError: Ooops, something went wrong, please try again later!
+incorrectBotCommand: Incorrect command was entered!
+
+# Code helpers
+averagePriceReplacementTextPart: for two person

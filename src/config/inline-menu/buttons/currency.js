@@ -1,8 +1,8 @@
 const { Markup } = require('telegraf');
-const { USD_CURRENCY_CODE, RUB_CURRENCY_CODE, EUR_CURRENCY_CODE } = require('../../../constants/constants');
+const { Currency } = require('../../../enum');
 
-const USD_CURRENCY_BUTTON = Markup.callbackButton(USD_CURRENCY_CODE, 'usd');
-const RUB_CURRENCY_BUTTON = Markup.callbackButton(RUB_CURRENCY_CODE, 'rub');
-const EUR_CURRENCY_BUTTON = Markup.callbackButton(EUR_CURRENCY_CODE, 'eur');
+const USD_CURRENCY_BUTTON = Markup.callbackButton(Currency.USD_CURRENCY_CODE, Currency.USD_CURRENCY_CODE.toLowerCase());
+const RUB_CURRENCY_BUTTON = Markup.callbackButton(Currency.RUB_CURRENCY_CODE, Currency.RUB_CURRENCY_CODE.toLowerCase());
+const EUR_CURRENCY_BUTTON = Markup.callbackButton(Currency.EUR_CURRENCY_CODE, Currency.EUR_CURRENCY_CODE.toLowerCase());
 
 module.exports = [USD_CURRENCY_BUTTON, RUB_CURRENCY_BUTTON, EUR_CURRENCY_BUTTON];

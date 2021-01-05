@@ -1,37 +1,30 @@
-const { fetchCurrencyRate } = require('./http.utils');
-const {
-  USD_CURRENCY_CODE,
-  RUB_CURRENCY_CODE,
-  EUR_CURRENCY_CODE,
-  USD_CURRENCY_SIGN,
-  RUB_CURRENCY_SIGN,
-  EUR_CURRENCY_SIGN
-} = require('../constants/constants');
+const { Language, Currency } = require('../enum');
+const { fetchCurrencyRate } = require('./http');
 
 const getChosenCurrencyCode = language => {
   switch (language) {
-    case 'en': {
-      return USD_CURRENCY_CODE;
+    case Language.EN: {
+      return Currency.USD_CURRENCY_CODE;
     }
-    case 'ru': {
-      return RUB_CURRENCY_CODE;
+    case Language.RU: {
+      return Currency.RUB_CURRENCY_CODE;
     }
-    case 'es': {
-      return EUR_CURRENCY_CODE;
+    case Language.ES: {
+      return Currency.EUR_CURRENCY_CODE;
     }
   }
 };
 
 const getChosenCurrencySign = currencyCode => {
   switch (currencyCode) {
-    case USD_CURRENCY_CODE: {
-      return USD_CURRENCY_SIGN;
+    case Currency.USD_CURRENCY_CODE: {
+      return Currency.USD_CURRENCY_SIGN;
     }
-    case RUB_CURRENCY_CODE: {
-      return RUB_CURRENCY_SIGN;
+    case Currency.RUB_CURRENCY_CODE: {
+      return Currency.RUB_CURRENCY_SIGN;
     }
-    case EUR_CURRENCY_CODE: {
-      return EUR_CURRENCY_SIGN;
+    case Currency.EUR_CURRENCY_CODE: {
+      return Currency.EUR_CURRENCY_SIGN;
     }
   }
 };

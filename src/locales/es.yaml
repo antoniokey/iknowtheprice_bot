@@ -1,21 +1,7 @@
-welcomeMessage: ¡Te ayudaré a mostrar los precios de alojamiento en diferentes ciudades! ¡Escriba /ayude para obtener ayuda!
-getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar en el formato - país, ciudad, código de estado (ciudades separadas por un espacio, guión, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
-setLanguageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
-setCurrencyQuestionMessage: ¿En qué moneda desea ver los precios? ¡Elija la moneda correcta!
-setAmountOfPersonsQuestionMessage: ¡Especifique el número de personas para las que se mostrarán los precios!
-choosenCurrencyMessage: ¡La moneda actual es ${choosenCurrency}!
-choosenLanguageMessage: ¡El idioma actual es el español!
-choosenAmountOfPersonsMessage: ¡Cantidad de personas - ${choosenAmountOfPersons}!
-
-incorrectPlaceName: ¡Formato incorrecto de los valores de país y ciudad, por ejemplo - país, ciudad, código de estado (ciudades separadas por un espacio, guión, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
-placeNotFound: No se puede proporcionar la lista de precios para el lugar que está buscando.
-parsingPageError: Vaya, algo salió mal. Vuelve a intentarlo más tarde.
-incorrectBotCommand: ¡Se ingresó un comando incorrecto!
-
-averagePriceReplacementTextPart: para dos personas
-
+# Commands
 helpActionMessage: /help - Mostrar todos los comandos
 
+# Menu buttons
 displayLanguageButtonText: Mostrar el idioma actual
 displayCurrencyButtonText: Mostrar la moneda actual
 displayAmountOfPersonsButtonText: Mostrar la cantidad actual de personas
@@ -27,4 +13,25 @@ enLanguageButton: Inglés
 esLanguageButton: Español
 cancelButtonText: Cancelar
 
+# Buttons menu actions
+setLanguageQuestionMessage: ¿Qué idioma quieres usar? ¡Elija el idioma apropiado!
+setCurrencyQuestionMessage: ¿En qué moneda desea ver los precios? ¡Elija la moneda correcta!
+setAmountOfPersonsQuestionMessage: ¡Especifique el número de personas para las que se mostrarán los precios!
+chosenCurrencyMessage: ¡La moneda actual es ${chosenCurrency}!
+chosenLanguageMessage: ¡El idioma actual es el español!
+chosenAmountOfPersonsMessage: ¡Cantidad de personas - ${chosenAmountOfPersons}!
+
+# Text for users
+welcomeMessage: ¡Te ayudaré a mostrar los precios de alojamiento en diferentes ciudades! ¡Escriba /ayude para obtener ayuda!
+getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente escriba el nombre del lugar en el formato - país, ciudad, código de estado (ciudades separadas por un espacio, guión, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
 gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incomingPlace}...
+
+# Errors
+incorrectPlaceName: ¡Formato incorrecto de los valores de país y ciudad, por ejemplo - país, ciudad, código de estado (ciudades separadas por un espacio, guión, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
+placeNotFound: No se puede proporcionar la lista de precios para el lugar que está buscando.
+parsingPageError: Vaya, algo salió mal. Vuelve a intentarlo más tarde.
+incorrectBotCommand: ¡Se ingresó un comando incorrecto!
+
+# Code helpers
+averagePriceReplacementTextPart: para dos personas
+
