@@ -124,7 +124,7 @@ const getPriceList = async (page, i18n, session) => {
   return priceList;
 };
 
-const getPageUrl = (pageUrl, language, country, city) => {
+const getPageUrl = (pageUrl, language, country, city, state) => {
   let url;
 
   if (language === 'en') {
@@ -136,12 +136,18 @@ const getPageUrl = (pageUrl, language, country, city) => {
     url = `${protocol}${language}.${domain}/country/${country}/city/${city}/cost-of-living`;
   }
 
+  if (state) {
+    const urlWithoutEndPart = url.split('/cost-of-living')[0];
+
+    url = `${urlWithoutEndPart}-${state}/cost-of-living`;
+  }
+
   return url;
 };
 
-const getInformationForAPlace = async (incommingPlace, i18n) => {
+const preparePlaceInformation = async (incommingPlace, i18n) => {
   const incorrectPlaceName = i18n.t('incorrectPlaceName');
-  const [country, city] = incommingPlace.split(',').map(value => value.trim());
+  const [country, city, state] = incommingPlace.split(',').map(value => value.trim());
 
   if (!country || !city) {
     throw new BotError(incorrectPlaceName, true);
@@ -152,7 +158,8 @@ const getInformationForAPlace = async (incommingPlace, i18n) => {
 
   return {
     country: prepareTranslatedData(translatedCountry.text),
-    city: prepareTranslatedData(translatedCity.text)
+    city: prepareTranslatedData(translatedCity.text),
+    state: state ? state.toLowerCase() : null
   };
 };
 
@@ -203,7 +210,7 @@ const interactionAfterAnAction = async (ctx, actionMessage) => {
 module.exports = {
   getPriceList,
   getPageUrl,
-  getInformationForAPlace,
+  preparePlaceInformation,
   getAveragePrice,
   replyWithHTML,
   prepareTranslatedData,

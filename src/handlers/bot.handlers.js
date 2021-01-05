@@ -6,7 +6,7 @@ const { handleError } = require('../utils/error.utils');
 const { fetchPage } = require('../utils/http.utils');
 const {
   getPageUrl,
-  getInformationForAPlace,
+  preparePlaceInformation,
   getAveragePrice,
   getPriceList,
   getEditPartOfHelp,
@@ -108,10 +108,9 @@ const handleSetCurrencyAction = async ctx => {
 
 const handleText = async ctx => {
   const { i18n, message, session, replyWithHTML, reply } = ctx;
+  const environmentPageUrl = process.env.PRICE_LIST_PAGE_URL;
 
   if (session.isPriceListMode) {
-    const environmentPageUrl = process.env.PRICE_LIST_PAGE_URL;
-
     try {
       const incommingMessage = message.text;
       if (isBotCommand(incommingMessage)) {
@@ -121,13 +120,14 @@ const handleText = async ctx => {
       }
 
       const language = i18n.languageCode;
+      const amountOfPersons = session.amountOfPersons;
       const averagePriceReplacementTextPart = i18n.t('averagePriceReplacementTextPart');
-      const { country, city, amountOfPersons } = await getInformationForAPlace(incommingMessage, i18n);
+      const { country, city, state } = await preparePlaceInformation(incommingMessage, i18n);
       const gettingPriceListMessage = i18n.t('gettingPriceListMessage', { incomingPlace: `${country}, ${city}` });
 
       await reply(gettingPriceListMessage);
 
-      const pageUrl = getPageUrl(environmentPageUrl, language, country, city);
+      const pageUrl = getPageUrl(environmentPageUrl, language, country, city, state);
       const webpage = await fetchPage(pageUrl);
       const priceList = await getPriceList(webpage.data, i18n, session);
       const averagePrice = getAveragePrice(webpage.data, amountOfPersons, averagePriceReplacementTextPart);
