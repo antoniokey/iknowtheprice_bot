@@ -141,11 +141,11 @@ const getPageUrl = (pageUrl, language, country, city, state) => {
 };
 
 const preparePlaceInformation = async (incommingPlace, i18n) => {
-  const incorrectPlaceName = i18n.t('incorrectPlaceName');
+  const incorrectPlaceInfo = i18n.t('incorrectPlaceInfo');
   const [country, city, state] = incommingPlace.split(',').map(value => value.trim());
 
   if (!country || !city) {
-    throw new BotError(incorrectPlaceName, true);
+    throw new BotError(incorrectPlaceInfo, true);
   }
 
   const translatedCountry = await translate(country, { to: Language.EN });

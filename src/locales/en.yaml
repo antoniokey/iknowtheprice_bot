@@ -27,8 +27,8 @@ getPriceListMessage: To get the price list of a place just type the place like -
 gettingPriceListMessage: Now the bot is getting all the price in ${incomingPlace}...
 
 # Errors
-incorrectPlaceName: Incorrect format of country and city values, for example - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
-placeNotFound: Can not provide price list for the place you are looking for!
+incorrectPlaceInfo: Incorrect format of the place, for example - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
+placeNotFound: Can not provide a price list for the place you are looking for!
 parsingPageError: Ooops, something went wrong, please try again later!
 incorrectBotCommand: Incorrect command was entered!
 

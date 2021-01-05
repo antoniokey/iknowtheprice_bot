@@ -37,8 +37,9 @@ const handlePriceList = async ctx => {
       priceListPromises.then(() => replyWithHTML(averagePrice));
     } catch(err) {
       if (err.isAxiosError) {
-        const message = err.response.status ? i18n.t('placeNotFound') : err.message;
-        const isUserError = err.response.status ? true : false;
+        const status = err.response.status;
+        const message = status && status === 404 ? i18n.t('placeNotFound') : err.message;
+        const isUserError = status ? true : false;
 
         handleError(new BotError(message, isUserError), ctx);
       } else {
