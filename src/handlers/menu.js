@@ -76,7 +76,7 @@ const handleCancel = async ctx => {
     session.isPriceListMode = true;
   }
 
-  await showPriceListMessage(ctx);
+  await showPriceListMessage(ctx, false);
 };
 
 module.exports = {

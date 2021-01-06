@@ -23,7 +23,10 @@ chosenAmountOfPersonsMessage: Amount of persons - ${chosenAmountOfPersons}!
 
 # Text for users
 welcomeMessage: I will help you show prices for accommodation in different cities! Write /help for help!
-getPriceListMessage: To get the price list of a place just type the place like - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
+getPriceListCommomMessage: To get the price list of a place just type the place like - country, city, state code (cities separated by a space, hyphen, state code only for those countries where there are states, for example - CA)!
+getPriceListExampleTextMessage: For example
+getPriceListFirstExamplePlaceMessage: Belarus, Minsk (example without state)
+getPriceListSecondExamplePlaceMessage: United-States, Santa-Cruz, CA (example where there is a state - CA)
 gettingPriceListMessage: Now the bot is getting all the price in ${incomingPlace}...
 
 # Errors

@@ -23,7 +23,10 @@ chosenAmountOfPersonsMessage: Количество человек - ${chosenAmou
 
 # Text for users
 welcomeMessage: Я помогу показать цены на проживание в разных городах! Напишите /help для помощи!
-getPriceListMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город, код штата(города и старны разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
+getPriceListCommomMessage: Чтобы посмотреть информацию о ценах, напишите название места в формете - страна, город, код штата(города и старны разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!
+getPriceListExampleTextMessage: Например
+getPriceListFirstExamplePlaceMessage: Беларусь, Минск (пример без штата)
+getPriceListSecondExamplePlaceMessage: United-States, Santa-Cruz, CA (пример где есть штат - CA)
 gettingPriceListMessage: В данный момент бот собирает информацию о ценах для ${incomingPlace}...
 
 # Errors

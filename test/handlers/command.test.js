@@ -15,6 +15,7 @@ describe('Command handlers', () => {
       session,
       i18n,
       reply() {},
+      replyWithHTML() {},
     };
     
     await handleStart(ctx);

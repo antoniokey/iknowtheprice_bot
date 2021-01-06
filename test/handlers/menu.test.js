@@ -26,6 +26,7 @@ describe('Menu handlers', () => {
       session,
       i18n,
       reply() {},
+      replyWithHTML() {},
     };
   })
 

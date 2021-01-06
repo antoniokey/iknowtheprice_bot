@@ -178,11 +178,23 @@ const interactionAfterAnAction = async (ctx, actionMessage) => {
   ctx.reply(actionMessage);
 };
 
-const showPriceListMessage = async ctx => {
-  const { reply, i18n } = ctx;
-  const getPriceListMessage = i18n.t('getPriceListMessage');
+const showPriceListMessage = async (ctx, menu) => {
+  const { replyWithHTML, i18n } = ctx;
 
-  reply(getPriceListMessage);
+  if (menu) {
+    replyWithHTML(getPriceListMessageForReply(i18n), menu);
+  } else {
+    replyWithHTML(getPriceListMessageForReply(i18n));
+  }
+};
+
+const getPriceListMessageForReply = i18n => {
+  const priceListCommomMessage = i18n.t('getPriceListCommomMessage');
+  const priceListExampleTextMessage = i18n.t('getPriceListExampleTextMessage');
+  const priceListFirstExamplePlaceMessage = i18n.t('getPriceListFirstExamplePlaceMessage');
+  const priceListSecondExamplePlaceMessage = i18n.t('getPriceListSecondExamplePlaceMessage');
+
+  return `${priceListCommomMessage}\n\n<b>${priceListExampleTextMessage}:</b>\n${priceListFirstExamplePlaceMessage}\n${priceListSecondExamplePlaceMessage}`;
 };
 
 module.exports = {

@@ -1,5 +1,6 @@
+const { MainMenu } = require('../config/inline-menu');
 const { Currency } = require('../enum');
-const { showMainMenu } = require('../utils/menu');
+const { showPriceListMessage } = require('../utils/price-list');
 
 const handleStart = async ctx => {
   const { session, i18n, reply } = ctx;
@@ -13,11 +14,11 @@ const handleStart = async ctx => {
   session.isPriceListMode = true;
 
   await reply(welcomeMessage);
-  await showMainMenu(ctx);
+  await showPriceListMessage(ctx, MainMenu.getMainMenu(i18n));
 };
 
 const handleHelp = async ctx => {
-  await showMainMenu(ctx);
+  await showPriceListMessage(ctx, MainMenu.getMainMenu(i18n));
 };
 
 module.exports = { handleStart, handleHelp };
