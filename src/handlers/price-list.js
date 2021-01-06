@@ -47,7 +47,7 @@ const handlePriceList = async ctx => {
       }
     }
   } else {
-    session.amountOfPersons = message.text;
+    session.amountOfPersons = +message.text;
     session.isPriceListMode = true;
 
     const chosenAmountOfPersonsMessage = i18n.t('chosenAmountOfPersonsMessage', { chosenAmountOfPersons: session.amountOfPersons });

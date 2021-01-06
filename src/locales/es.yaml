@@ -27,7 +27,7 @@ getPriceListMessage: Para obtener la lista de precios de un lugar, simplemente e
 gettingPriceListMessage: Ahora el bot obtiene todo el precio en ${incomingPlace}...
 
 # Errors
-incorrectPlaceInfo: !Formato de lugar incorrecto, por ejemplo - país, ciudad, código de estado (ciudades y países separados por un espacio, con guiones, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
+incorrectPlaceInfo: ¡Formato de lugar incorrecto, por ejemplo - país, ciudad, código de estado (ciudades y países separados por un espacio, con guiones, código de estado solo para aquellos países donde hay estados, por ejemplo, CA)!
 placeNotFound: ¡No es posible proporcionar una lista de precios para el lugar que está buscando!
 parsingPageError: Vaya, algo salió mal. Vuelve a intentarlo más tarde.
 incorrectBotCommand: ¡Se ingresó un comando incorrecto!

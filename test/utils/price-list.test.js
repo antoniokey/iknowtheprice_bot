@@ -1,15 +1,15 @@
-const { USD_CURRENCY_CODE } = require('../../src/constants/constants');
+const { Currency, Language } = require('../../src/enum');
 const {
   removeNewLinesTralingLeadingSpaces,
   prepareTranslatedData,
   getAveragePriceForTwoPersons,
-  getAveragePriceForPersons,
   getPreparedAveragePriceResponse,
+  getAveragePriceForPersons,
   getPageUrl,
   preparePlaceInformation
-} = require('../../src/utils/bot.utils');
+} = require('../../src/utils/price-list');
 
-describe('Utils', () => {
+describe('Price List Utils', () => {
 
   it('removeNewLinesAndSpaces should remove all spaces and new line characters from a string', () => {
     const string = '   This is a testing\n string   ';
@@ -63,7 +63,7 @@ describe('Utils', () => {
 
   it('getPreparedAveragePriceResponse should remove unsutable parts of text and leave space on that place', () => {
     const currencyRate = 1;
-    const priceListCurrencyCode = USD_CURRENCY_CODE;
+    const priceListCurrencyCode = Currency.USD_CURRENCY_CODE;
     const price = 200.00;
     const textEn = `for two person   ${price}`;
     const textRu = `для двух человек   ${price}`;
@@ -89,9 +89,9 @@ describe('Utils', () => {
     const pageUrlDomain = 'test.com';
     const county = 'Country';
     const city = 'City';
-    const en = 'en';
-    const ru = 'ru';
-    const es = 'es';
+    const en = Language.EN;
+    const ru = Language.RU;
+    const es = Language.ES;
     const expectedResultEn = `${pageUrlProtocol}${pageUrlDomain}/country/${county}/city/${city}/cost-of-living`;
     const expectedResultRu = `${pageUrlProtocol}ru.${pageUrlDomain}/country/${county}/city/${city}/cost-of-living`;
     const expectedResultEs = `${pageUrlProtocol}es.${pageUrlDomain}/country/${county}/city/${city}/cost-of-living`;
