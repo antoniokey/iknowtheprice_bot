@@ -18,7 +18,7 @@ const handleStart = async ctx => {
 };
 
 const handleHelp = async ctx => {
-  await showPriceListMessage(ctx, MainMenu.getMainMenu(i18n));
+  await showPriceListMessage(ctx, MainMenu.getMainMenu(ctx.i18n));
 };
 
 module.exports = { handleStart, handleHelp };

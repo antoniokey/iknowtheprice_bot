@@ -117,21 +117,26 @@ describe('Price List Utils', () => {
     const languagesData = {
       en: { country: 'Country', city: 'City' },
       ru: { country: 'Страна', city: 'Город' },
-      es: { country: 'País', city: 'Ciudad' },
+      es: { country: 'Pais', city: 'Ciudad' },
+    }
+    const languagesTranslatedData = {
+      en: { country: 'Country', city: 'City' },
+      ru: { country: 'Side', city: 'Town' },
+      es: { country: 'Country', city: 'City' },
     }
     const expectedResultEn = {
-      country: languagesData.en.country.toLowerCase(),
-      city: languagesData.en.city.toLowerCase(),
+      country: languagesTranslatedData.en.country.toLowerCase(),
+      city: languagesTranslatedData.en.city.toLowerCase(),
       state: null
     };
     const expectedResultRu = {
-      country: 'side', // telegraf-i18n does not correctrly translate russian word - country
-      city: languagesData.en.city.toLowerCase(),
+      country: languagesTranslatedData.ru.country.toLowerCase(),
+      city: languagesTranslatedData.ru.city.toLowerCase(),
       state: null
     };
     const expectedResultEs = {
-      country: languagesData.en.country.toLowerCase(),
-      city: languagesData.en.city.toLowerCase(),
+      country: languagesTranslatedData.es.country.toLowerCase(),
+      city: languagesTranslatedData.es.city.toLowerCase(),
       state: null
     };
 
