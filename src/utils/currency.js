@@ -30,11 +30,11 @@ const getChosenCurrencySign = currencyCode => {
 };
 
 const getCurrencyRate = async (toCurrencyCode, fromCurrencyCode) => {
-  const coverterApiUrl = `${process.env.CURRENCY_CONVERTER_API}`;
-  const coverterApiUrlQuery = `?apiKey=${process.env.CURRENCY_CONVERTER_API_KEY}&q=${fromCurrencyCode}_${toCurrencyCode}&compact=ultra`;
-  const { data: currencyRate } = await fetchCurrencyRate(coverterApiUrl + coverterApiUrlQuery);
+  const coverterApiUrl = `${process.env.CURRENCY_CONVERTER_API}/latest`;
+  const coverterApiUrlQuery = `?base=${fromCurrencyCode}&symbols=${toCurrencyCode}`;
+  const { data: { rates } } = await fetchCurrencyRate(`${coverterApiUrl}${coverterApiUrlQuery}`);
 
-  return currencyRate[`${fromCurrencyCode}_${toCurrencyCode}`];
+  return rates[toCurrencyCode];
 };
 
 module.exports = { getChosenCurrencyCode, getChosenCurrencySign, getCurrencyRate };

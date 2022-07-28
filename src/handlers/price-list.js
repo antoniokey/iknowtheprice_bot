@@ -32,9 +32,11 @@ const handlePriceList = async ctx => {
       const webpage = await fetchPage(pageUrl);
       const priceList = await getPriceList(webpage.data, i18n, session);
       const averagePrice = await getAveragePrice(session, webpage.data, averagePriceReplacementTextPart);
-      const priceListPromises = Promise.all(priceList.map(price => replyWithHTML(price)));
+      const averagePriceMessage = i18n.t('averagePriceMessage', { persons: session.amountOfPersons, price: averagePrice });
+      
+      await Promise.all(priceList.map(price => replyWithHTML(price)));
 
-      priceListPromises.then(() => replyWithHTML(averagePrice));
+      replyWithHTML(averagePriceMessage);
     } catch(err) {
       if (err.isAxiosError) {
         const status = err.response.status;

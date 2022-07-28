@@ -5,7 +5,14 @@ const fetchPage = url => {
 };
 
 const fetchCurrencyRate = url => {
-  return axios.get(url);
+  return axios.get(
+    url,
+    {
+      headers: {
+        'apikey': process.env.CURRENCY_CONVERTER_API_KEY,
+      },
+    },
+  );
 };
 
 module.exports = { fetchCurrencyRate, fetchPage };

@@ -28,6 +28,7 @@ getPriceListExampleTextMessage: Например
 getPriceListFirstExamplePlaceMessage: Беларусь, Минск (пример без штата)
 getPriceListSecondExamplePlaceMessage: United-States, Santa-Cruz, CA (пример где есть штат - CA)
 gettingPriceListMessage: В данный момент бот собирает информацию о ценах для ${incomingPlace}...
+averagePriceMessage: Приблизительная стоимость проживания за один месяц для ${persons} человек(а) будет составлять ${price} без учета стоимости жилья.
 
 # Errors
 incorrectPlaceInfo: Некорректный формат места, например - страна, город, код штата(города и старны разделенные пробелом через дефис, код штата только для тех стран, где есть штаты, например - CA)!

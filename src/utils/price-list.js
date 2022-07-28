@@ -39,7 +39,7 @@ const getPreparedAveragePriceResponse = (averagePriceText, averagePriceForPerson
   preparedAveragePriceResponse = averagePriceText.replace(averagePriceReplacementTextPart, '');
   preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/[0-9]+.[0-9]+/, (averagePriceForPersons * currencyRate).toFixed(2));
   preparedAveragePriceResponse = preparedAveragePriceResponse.replace(/ {2,}/, ' ');
-  preparedAveragePriceResponse = preparedAveragePriceResponse.replace(Currency.USD_CURRENCY_CODE, priceListCurrencyCode);
+  preparedAveragePriceResponse += ` ${priceListCurrencyCode}`;
 
   return preparedAveragePriceResponse;
 };
@@ -82,12 +82,12 @@ const getListData = (parsingPageError, $, session) => {
         options.goodPrice = priceResult;
         options.goodPriceCurrency = getChosenCurrencySign(session.priceListCurrencyCode);
       });
-    
-    if (prevTag === 'h3') {
-      list.push([options]);
-    } else {
-      list[list.length - 1].push(options);
-    }
+
+      if (prevTag === 'h2') {
+        list.push([options]);
+      } else {
+        list[list.length - 1].push(options);
+      }
   });
 
   if (list.length) {
@@ -162,10 +162,10 @@ const getAveragePrice = async (session, page, averagePriceReplacementTextPart) =
   const { priceListCurrencyCode, amountOfPersons } = session;
   const currencyRate = await getCurrencyRate(session.priceListCurrencyCode, Currency.USD_CURRENCY_CODE);
   const $ = cheerio.load(page);
-  const averagePriceText = `<b>${removeNewLinesTralingLeadingSpaces($($(Selector.AVERAGE_PRICE)[0]).text())}</b>`;
+  const averagePriceText = removeNewLinesTralingLeadingSpaces($($(Selector.AVERAGE_PRICE)[0]).text());
   const averagePriceForTwoPersons = getAveragePriceForTwoPersons(averagePriceText);
   const averagePriceForPersons = getAveragePriceForPersons(averagePriceForTwoPersons, amountOfPersons);
-  const averagePriceResponse = getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPart);
+  const averagePriceResponse = `<b>${getPreparedAveragePriceResponse(averagePriceText, averagePriceForPersons, currencyRate, priceListCurrencyCode, averagePriceReplacementTextPart)}</b>`;
 
   return averagePriceResponse;
 };
